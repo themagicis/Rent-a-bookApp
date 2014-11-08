@@ -20,12 +20,12 @@
 }
 else
 {
-    using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new { @class = "navbar-form pull-right" }))
+    using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new { @class = "navbar-form pull-right form-inline" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input name="Email" class="span2" type="text" placeholder="Email">
-        <input name="Password" class="span2" type="password" placeholder="Password">
+        <input name="Email" class="input-small" type="text" placeholder="Email">
+        <input name="Password" class="input-small" type="password" placeholder="Password">
         <button type="submit" class="btn btn-primary">Sign in</button>
         @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary" })
     }
