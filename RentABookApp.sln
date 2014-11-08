@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABookApp.Models", "RentABookApp.Models\RentABookApp.Models.csproj", "{E74BA287-4B33-4805-86A9-5354B651CE0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Models", "RentABookApp.Models\RentABook.Models.csproj", "{E74BA287-4B33-4805-86A9-5354B651CE0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Web", "RentABook.Web\RentABook.Web.csproj", "{40090D75-D4BA-4426-85FB-0FD1DE4FC21F}"
 EndProject
