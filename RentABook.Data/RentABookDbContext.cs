@@ -5,6 +5,7 @@
 
     using RentABook.Data.Migrations;
     using RentABook.Models.Poco;
+    using RentABook.Models.Mapping;
 
     public class RentABookDbContext : IdentityDbContext<AppUser>
     {
@@ -19,6 +20,20 @@
             return new RentABookDbContext();
         }
 
-        public IDbSet<Book> RentABook { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new AddressMap());
+            modelBuilder.Configurations.Add(new BookMap());
+            modelBuilder.Configurations.Add(new BookHistoryMap());
+            modelBuilder.Configurations.Add(new BookMap());
+            modelBuilder.Configurations.Add(new BookRentMap());
+            modelBuilder.Configurations.Add(new CategoryMap());
+            modelBuilder.Configurations.Add(new FavouriteMap());
+            modelBuilder.Configurations.Add(new FeedbackMap());
+            modelBuilder.Configurations.Add(new RentRequestMap());
+            modelBuilder.Configurations.Add(new TownMap());
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

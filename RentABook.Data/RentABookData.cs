@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Linq;
 
     using RentABook.Data.Repositories;
     using RentABook.Models.Poco;
+
 
     public class RentABookData : IRentABookData
     {
@@ -21,6 +23,11 @@
         public IRepository<AppUser> Users
         {
             get { return this.GetRepository<AppUser>(); }
+        }
+
+        public IQueryable<T> GetByEntity<T>() where T: class
+        {
+            return this.context.Set<T>().AsQueryable();
         }
 
         public int SaveChanges()
