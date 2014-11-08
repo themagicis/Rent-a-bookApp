@@ -25,7 +25,6 @@
             modelBuilder.Configurations.Add(new AddressMap());
             modelBuilder.Configurations.Add(new BookMap());
             modelBuilder.Configurations.Add(new BookHistoryMap());
-            modelBuilder.Configurations.Add(new BookMap());
             modelBuilder.Configurations.Add(new BookRentMap());
             modelBuilder.Configurations.Add(new CategoryMap());
             modelBuilder.Configurations.Add(new FavouriteMap());

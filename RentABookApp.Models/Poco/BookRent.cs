@@ -24,10 +24,10 @@
 
         public RentState State { get; set; }
 
-        public int FeedbackOwnerId { get; set; }
+        public int? FeedbackOwnerId { get; set; }
         public virtual Feedback FeedBackOwner { get; set; }
 
-        public int FeedbackReceiverId { get; set; }
+        public int? FeedbackReceiverId { get; set; }
         public virtual Feedback FeedBackReceiver { get; set; }
     }
 }

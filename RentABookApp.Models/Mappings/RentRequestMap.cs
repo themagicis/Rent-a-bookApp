@@ -19,8 +19,8 @@
             this.Property(x => x.DateEnd).HasColumnName("DateEnd").HasColumnType("datetime").IsRequired();
             this.Property(x => x.State).HasColumnName("State").IsRequired();
 
-            this.HasRequired(x => x.Owner).WithMany(x => x.RequestsAsOwner).HasForeignKey(x => x.OwnerId);
-            this.HasRequired(x => x.Requester).WithMany(x => x.RequestsAsRequester).HasForeignKey(x => x.RequesterId);
+            this.HasRequired(x => x.Owner).WithMany(x => x.RequestsAsOwner).HasForeignKey(x => x.OwnerId).WillCascadeOnDelete(false);
+            this.HasRequired(x => x.Requester).WithMany(x => x.RequestsAsRequester).HasForeignKey(x => x.RequesterId).WillCascadeOnDelete(false);
             this.HasRequired(x => x.Book).WithMany(x => x.Requests).HasForeignKey(x => x.BookId);
         }
     }

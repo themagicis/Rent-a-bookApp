@@ -18,8 +18,8 @@
             this.Property(x => x.State).HasColumnName("State").IsRequired();
 
             this.HasRequired(x => x.Owner).WithMany(x => x.RentsAsOwner).HasForeignKey(x => x.OwnerId);
-            this.HasRequired(x => x.Receiver).WithMany(x => x.RentsAsReceiver).HasForeignKey(x => x.ReceiverId);
-            this.HasRequired(x => x.Request).WithMany(x => x.BookRents).HasForeignKey(x => x.RequestId);
+            this.HasRequired(x => x.Receiver).WithMany(x => x.RentsAsReceiver).HasForeignKey(x => x.ReceiverId).WillCascadeOnDelete(false);
+            this.HasRequired(x => x.Request).WithMany(x => x.BookRents).HasForeignKey(x => x.RequestId).WillCascadeOnDelete(false);
             this.HasOptional(x => x.FeedBackOwner).WithMany(x => x.OwnerRents).HasForeignKey(x => x.FeedbackOwnerId);
             this.HasOptional(x => x.FeedBackReceiver).WithMany(x => x.ReceiverRents).HasForeignKey(x => x.FeedbackReceiverId);
         }

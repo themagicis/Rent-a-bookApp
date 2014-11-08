@@ -10,10 +10,10 @@ namespace RentABook.Models.Poco
     {
         public int Id { get; set; }
 
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
         public AppUser Creator { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public AppUser User { get; set; }
 
         public DateTime DateCreated { get; set; }

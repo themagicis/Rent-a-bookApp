@@ -20,10 +20,20 @@ namespace RentABook.Data.Migrations
 
         protected override void Seed(RentABookDbContext context)
         {
-            var UserManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
+            var userManager = new UserManager<AppUser>(new UserStore<AppUser>(context));
+
+            userManager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 3,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
+            };
+
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
-            string name = "SiteAdmin@test.com";
+            string name = "SiteAdmin";
             string password = "123";
             string adminRole = "Admin";
             string superAdminRole = "SuperAdmin";
@@ -37,12 +47,12 @@ namespace RentABook.Data.Migrations
 
             var user = new AppUser();
             user.UserName = name;
-            var adminresult = UserManager.Create(user, password);
+            var adminresult = userManager.Create(user, password);
 
             if (adminresult.Succeeded)
             {
-                var result = UserManager.AddToRole(user.Id, superAdminRole);
-                result = UserManager.AddToRole(user.Id, adminRole);
+                var result = userManager.AddToRole(user.Id, superAdminRole);
+                result = userManager.AddToRole(user.Id, adminRole);
             }
 
             base.Seed(context);
