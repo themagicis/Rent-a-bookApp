@@ -165,7 +165,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -230,7 +229,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RentABook.Data\RentABook.Data.csproj">
+      <Project>{e9042f76-28a1-46b8-b5cf-06811c6bdaaf}</Project>
+      <Name>RentABook.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RentABookApp.Models\RentABook.Models.csproj">
+      <Project>{e74ba287-4b33-4805-86a9-5354b651ce0c}</Project>
+      <Name>RentABook.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

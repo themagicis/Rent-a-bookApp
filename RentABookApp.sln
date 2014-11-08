@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Web", "RentABook.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Web.Tests", "RentABook.Web.Tests\RentABook.Web.Tests.csproj", "{79953AEB-8A14-45C5-B721-18999F88DEC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Data", "RentABook.Data\RentABook.Data.csproj", "{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{79953AEB-8A14-45C5-B721-18999F88DEC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79953AEB-8A14-45C5-B721-18999F88DEC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79953AEB-8A14-45C5-B721-18999F88DEC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

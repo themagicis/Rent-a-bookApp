@@ -1,4 +1,4 @@
-﻿namespace RentABookApp.Models.Poco
+﻿namespace RentABook.Models.Poco
 {
     public class Town
     {
