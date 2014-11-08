@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 46px;
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,29 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+body > .navbar .brand {
+    padding-right: 0;
+    padding-left: 0;
+    font-weight: bold;
+    color: #000;
+}
+
+img.logo {
+    position: relative;
+    left: -20px;
+    top: 4px;
+}
+
+.hero-unit {
+    background: #00001C;
+}
+
+.hero-unit h1 {
+    color: #FFF;
+}
+
+.hero-unit p {
+    color: #F5F5F5;
 }

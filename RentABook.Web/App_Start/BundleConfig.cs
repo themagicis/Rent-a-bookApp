@@ -25,6 +25,7 @@ namespace RentABook.Web
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootplus.css",
+                      "~/Content/bootplus-responsive.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/site.css"));
 
