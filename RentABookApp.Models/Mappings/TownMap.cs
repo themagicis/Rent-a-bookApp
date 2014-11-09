@@ -13,7 +13,7 @@
             this.HasKey(x => x.Id);
 
             this.Property(x => x.Id).HasColumnName("Id");
-            this.Property(x => x.Name).HasColumnName("FullAddress").HasMaxLength(100).IsRequired();
+            this.Property(x => x.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
         }
     }
 }

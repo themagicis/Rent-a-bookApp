@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 46px;
+    padding-top: 51px;
     padding-bottom: 120px;
 }
 
@@ -107,4 +107,12 @@ table#latest-books col:nth-child(3) {
 
 div.validation-summary-valid {
     display: none;
+}
+
+div.span4.fixed-height p:nth-of-type(2) {
+    height: 60px;
+}
+
+div.span4.fixed-height:nth-of-type(3n+1) {
+    margin-left: 0;
 }

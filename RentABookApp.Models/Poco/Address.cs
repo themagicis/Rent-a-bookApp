@@ -6,7 +6,6 @@
     {
         public Address()
         {
-            this.Users = new HashSet<AppUser>();
             this.Books = new HashSet<Book>();
         }
 
@@ -17,7 +16,8 @@
 
         public string FullAddress { get; set; }
 
-        public virtual ICollection<AppUser> Users { get; set; }
+        public string UserId { get; set; }
+        public virtual AppUser User { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
     }

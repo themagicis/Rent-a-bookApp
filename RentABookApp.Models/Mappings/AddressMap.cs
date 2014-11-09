@@ -16,6 +16,7 @@
             this.Property(x => x.FullAddress).HasColumnName("FullAddress").HasMaxLength(100).IsRequired();
 
             this.HasRequired(x => x.Town).WithMany(x => x.Addresses).HasForeignKey(x => x.TownId);
+            this.HasRequired(x => x.User).WithMany(x => x.Addresses).HasForeignKey(x => x.UserId).WillCascadeOnDelete(false);
         }
     }
 }

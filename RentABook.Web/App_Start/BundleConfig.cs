@@ -16,8 +16,6 @@ namespace RentABook.Web
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -27,6 +25,7 @@ namespace RentABook.Web
                       "~/Content/bootplus.css",
                       "~/Content/bootplus-responsive.css",
                       "~/Content/font-awesome.min.css",
+                      "~/Content/toastr.css",
                       "~/Content/site.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,

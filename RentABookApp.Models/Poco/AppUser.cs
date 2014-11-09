@@ -11,6 +11,9 @@
     {
         public AppUser()
         {
+            this.Addresses = new HashSet<Address>();
+            this.Favourites = new HashSet<Favourite>();
+            this.AsFavourite = new HashSet<Favourite>();
             this.Books = new HashSet<Book>();
             this.RentsAsOwner = new HashSet<BookRent>();
             this.RentsAsReceiver = new HashSet<BookRent>();
@@ -35,6 +38,8 @@
         public int FeedbackScore { get; set; }
 
         public bool IsDeactivated { get; set; }
+
+        public ICollection<Address> Addresses { get; set; }
 
         public ICollection<Favourite> Favourites { get; set; }
 
