@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Web.Tests", "Rent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Data", "RentABook.Data\RentABook.Data.csproj", "{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentABook.Web.Infrastructure", "RentABook.Web.Infrastructure\RentABook.Web.Infrastructure.csproj", "{864BA26A-1C7A-4600-94BF-D75D636BF00F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9042F76-28A1-46B8-B5CF-06811C6BDAAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{864BA26A-1C7A-4600-94BF-D75D636BF00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864BA26A-1C7A-4600-94BF-D75D636BF00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864BA26A-1C7A-4600-94BF-D75D636BF00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864BA26A-1C7A-4600-94BF-D75D636BF00F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
