@@ -1,0 +1,52 @@
+﻿@using RentABook.Web.Areas.Users.Models
+@model AddressViewModel
+@{
+    ViewBag.Title = "Create new address";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Tools</li>
+                    <li><a href="~/Users/Profile/Settings">Settings</a></li>
+                    <li class="active"><a href="~/Users/Address/Addresses">Addresses</a></li>
+                    <li><a href="~/Users/Profile/Favourites">Favoutires</a></li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="card">
+                <h2 class="card-heading simple">Add new address</h2>
+                <div class="card-body">
+                    <p>
+                        @using (Html.BeginForm("CreateAddress", "Address", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.TownId, "Town", new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.TownId, Model.Towns, "Select town")
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.FullAddress, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.EditorFor(m => m.FullAddress, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls">
+                                    <input type="submit" value="Save" class="btn" />
+                                </div>
+                            </div>
+                        }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div><!--/row-->
+</div>

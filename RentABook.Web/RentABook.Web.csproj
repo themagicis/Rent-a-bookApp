@@ -178,6 +178,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Users\Controllers\AddressController.cs" />
     <Compile Include="Areas\Users\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Users\Models\AddressDetailsViewModel.cs" />
     <Compile Include="Areas\Users\Models\AddressViewModel.cs" />
@@ -214,8 +215,8 @@
     <Content Include="Areas\Users\Views\web.config" />
     <Content Include="Areas\Users\Views\Profile\Settings.cshtml" />
     <Content Include="Areas\Users\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Users\Views\Profile\Addresses.cshtml" />
-    <Content Include="Areas\Users\Views\Profile\CreateAddress.cshtml" />
+    <Content Include="Areas\Users\Views\Address\Addresses.cshtml" />
+    <Content Include="Areas\Users\Views\Address\CreateAddress.cshtml" />
     <Content Include="Areas\Users\Views\Shared\_ViewAddress.cshtml" />
     <Content Include="Areas\Users\Views\Shared\_EditAddress.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

@@ -1,0 +1,22 @@
+﻿@using RentABook.Web.Areas.Users.Models
+@model AddressDetailsViewModel
+@{
+    ViewBag.Title = "My addresses";
+}
+
+
+<div class="card">
+    <h2 class="card-heading simple">Address details:</h2>
+    <div class="card-body">
+        <p>
+            <strong>Town:</strong> @Model.Town
+        </p>
+        <p>
+            <strong>Address:</strong> @Model.FullAddress
+        </p>
+        <p>
+            @Ajax.ActionLink("Delete", "DeleteAddress", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = @Model.Id.ToString(), HttpMethod = "Post", OnSuccess = "deleteSuccess(" + @Model.Id + ")" }, new { id = "delete-button", @class = "btn" })
+            @Ajax.ActionLink("Edit", "EditAddress", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = @Model.Id.ToString(), HttpMethod = "Post" }, new { id = "edit-button", @class = "btn" })
+        </p>
+    </div>
+</div>

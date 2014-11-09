@@ -1,0 +1,51 @@
+﻿@using RentABook.Web.Areas.Users.Models
+@model IEnumerable<AddressDetailsViewModel>
+@{
+    ViewBag.Title = "My addresses";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Tools</li>
+                    <li><a href="~/Users/Profile/Settings">Settings</a></li>
+                    <li class="active"><a href="~/Users/Address/Addresses">Addresses</a></li>
+                    <li><a href="~/Users/Profile/Favourites">Favoutires</a></li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="card">
+                <h2 class="card-heading simple">Add new address</h2>
+                <div class="card-body">
+                    <p>
+                        <a class="btn btn-primary btn-large" href="~/Users/Address/CreateAddress">Create »</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="row-fluid">
+                @foreach (var address in Model)
+                {
+                    <div class="span4 fixed-height" id="@address.Id">
+                        @Html.Partial("_ViewAddress", address);
+                    </div>
+                }
+            </div>
+        </div><!--/span-->   
+    </div><!--/row-->
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script>
+        function deleteSuccess(id) {
+            $('div#' + id).remove();
+            toastr.success("You successfully deleted the address.");
+        }
+    </script>
+}
