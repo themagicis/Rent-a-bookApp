@@ -9,7 +9,8 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">@("Hello " + User.Identity.GetUserName() + "!")</a>
                 <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Manage Account", "Index", "Manage")</li>
+                    <li>@Html.ActionLink("Change password", "ChangePassword", "Manage")</li>
+                    <li>@Html.ActionLink("My addresses", "Index", "Manage")</li>
                     <li>@Html.ActionLink("Favourites", "Index", "Manage")</li>
                     <li class="divider"></li>
                     <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
@@ -23,8 +24,7 @@ else
     using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new { @class = "navbar-form pull-right form-inline" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <input name="Email" class="input-small" type="text" placeholder="Email">
+        <input name="UserName" class="input-small" type="text" placeholder="Username">
         <input name="Password" class="input-small" type="password" placeholder="Password">
         <button type="submit" class="btn btn-primary">Sign in</button>
         @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary" })
