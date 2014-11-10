@@ -12,7 +12,7 @@
                     <li class="nav-header">Tools</li>
                     <li><a href="~/Users/Profile/Settings">Settings</a></li>
                     <li class="active"><a href="~/Users/Address/Addresses">Addresses</a></li>
-                    <li><a href="~/Users/Profile/Favourites">Favoutires</a></li>
+                    <li><a href="~/Users/Favourites/List">Favourites</a></li>
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
@@ -31,7 +31,7 @@
                 @foreach (var address in Model)
                 {
                     <div class="span4 fixed-height" id="@address.Id">
-                        @Html.Partial("_ViewAddress", address);
+                        @Html.Partial("_ViewAddress", address)
                     </div>
                 }
             </div>

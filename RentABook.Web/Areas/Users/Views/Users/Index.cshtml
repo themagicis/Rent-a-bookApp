@@ -1,0 +1,46 @@
+﻿@using RentABook.Web.Areas.Users.Models
+@model UserDetailsViewModel
+@{
+    ViewBag.Title = "User Details";
+}
+
+<div class="container">
+    <div class="card">
+        <h2 class="card-heading simple">@ViewBag.Title</h2>
+        <div class="card-body">
+            <h3>
+                @Model.FullName (@Model.Username)
+                @if (!Model.IsSelfProfile)
+                {
+                    if (Model.IsFavourite)
+                    {
+                        <a href="~/Users/Favourites/List">
+                            <img width="64" title="Favourite book owner" class="pull-right" src="~/Content/Images/keditbookmarks.png" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-primary pull-right" href="~/Users/Favourites/Add/@Model.Id"><i class="icon-star"></i> Add to favourites</a>
+                    }
+                }
+            </h3>
+            <p>
+                <strong>Age:</strong> @Model.Age
+            </p>
+            <p>
+                <strong>Phone:</strong> @Model.Phone
+            </p>
+            <p>
+                <strong>Feedback score:</strong> @Model.Score&nbsp;
+                <img src="~/Content/Images/medal_icon.png" width="32" />
+                <img src="~/Content/Images/medal_icon.png" width="32" />
+                <img src="~/Content/Images/medal_icon.png" width="32" />
+            </p>
+            <p>
+                <strong>Books count:</strong> @Model.BooksCount
+            </p>
+        </div>
+    </div>
+</div>
+
+

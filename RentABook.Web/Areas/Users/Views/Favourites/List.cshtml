@@ -1,0 +1,42 @@
+﻿@using RentABook.Web.Areas.Users.Models
+@model IEnumerable<FavouriteItemViewModel>
+@{
+    ViewBag.Title = "Favourites List";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Tools</li>
+                    <li><a href="~/Users/Profile/Settings">Settings</a></li>
+                    <li><a href="~/Users/Address/Addresses">Addresses</a></li>
+                    <li class="active"><a href="~/Users/Favourites/List">Favourites</a></li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="card">
+                <h2 class="card-heading simple">@ViewBag.Title</h2>
+                <div class="card-body">
+                    @foreach (var fav in Model)
+                    {
+                        <div class="favourite-item">
+                            <img class="star" width="32" src="~/Content/Images/keditbookmarks.png" />
+                            <div class="info">
+                                <h4><a href="~/Users/@fav.UserName">@fav.FullName</a></h4>
+                                <div>@fav.UserName</div>
+                            </div>
+                            <a href="~/Users/Favourites/Remove/@fav.UserId">
+                                <img class="delete" width="28" title="Remove" src="~/Content/Images/delete_Icon.png" />
+                            </a>
+                        </div>
+                    }
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

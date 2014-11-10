@@ -179,15 +179,19 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Users\Controllers\AddressController.cs" />
+    <Compile Include="Areas\Users\Controllers\FavouritesController.cs" />
     <Compile Include="Areas\Users\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Users\Models\AddressDetailsViewModel.cs" />
     <Compile Include="Areas\Users\Models\AddressViewModel.cs" />
     <Compile Include="Areas\Users\Models\EditAddressViewModel.cs" />
+    <Compile Include="Areas\Users\Models\FavouriteItemViewModel.cs" />
     <Compile Include="Areas\Users\Models\UpdateProfileViewModel.cs" />
+    <Compile Include="Areas\Users\Models\UserDetailsViewModel.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Areas\Users\Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,6 +201,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\delete_Icon.png" />
+    <Content Include="Content\Images\keditbookmarks.png" />
+    <Content Include="Content\Images\medal_icon.png" />
     <Content Include="Content\bootplus-responsive.css" />
     <Content Include="Content\bootplus.css" />
     <Content Include="Content\bootstrap.css" />
@@ -220,6 +227,7 @@
     <Content Include="Areas\Users\Views\Address\CreateAddress.cshtml" />
     <Content Include="Areas\Users\Views\Shared\_ViewAddress.cshtml" />
     <Content Include="Areas\Users\Views\Shared\_EditAddress.cshtml" />
+    <Content Include="Areas\Users\Views\Favourites\List.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -250,6 +258,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Users\Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentABook.Data\RentABook.Data.csproj">

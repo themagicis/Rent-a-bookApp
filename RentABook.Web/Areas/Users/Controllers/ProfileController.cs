@@ -1,6 +1,7 @@
 ﻿namespace RentABook.Web.Areas.Users.Controllers
 {
     using System.Linq;
+    using System.Net;
     using System.Web.Mvc;
 
     using Microsoft.AspNet.Identity;
@@ -8,7 +9,7 @@
     using RentABook.Data.Repositories;
     using RentABook.Models.Poco;
     using RentABook.Web.Areas.Users.Models;
-    using System.Net;
+    
 
     [Authorize]
     [ValidateInput(false)]

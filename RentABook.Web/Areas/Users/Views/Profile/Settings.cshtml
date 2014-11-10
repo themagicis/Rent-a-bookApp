@@ -21,6 +21,8 @@
             <div class="card">
                 <h2 class="card-heading simple">Update profile</h2>
                 <div class="card-body">
+                    <a href="~/Manage/ChangePassword">Change password</a>
+                    <hr />
                     @using (Html.BeginForm("UpdateProfile", "Profile", null, FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
