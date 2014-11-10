@@ -183,6 +183,7 @@
     <Compile Include="Areas\Users\Models\AddressDetailsViewModel.cs" />
     <Compile Include="Areas\Users\Models\AddressViewModel.cs" />
     <Compile Include="Areas\Users\Models\EditAddressViewModel.cs" />
+    <Compile Include="Areas\Users\Models\UpdateProfileViewModel.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

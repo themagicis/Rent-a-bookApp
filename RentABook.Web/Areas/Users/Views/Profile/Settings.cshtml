@@ -1,4 +1,10 @@
-﻿<div class="container">
+﻿@using RentABook.Web.Areas.Users.Models
+@model UpdateProfileViewModel
+@{
+    ViewBag.Title = "Update profile";
+}
+
+<div class="container">
     <div class="row">
         <div class="span3">
             <div class="sidebar-nav">
@@ -13,12 +19,54 @@
 
         <div class="span9">
             <div class="card">
-                <h2 class="card-heading simple">Settings</h2>
+                <h2 class="card-heading simple">Update profile</h2>
                 <div class="card-body">
-                    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                    <p><a class="btn" href="#">View details »</a></p>
+                    @using (Html.BeginForm("UpdateProfile", "Profile", null, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        if (Model.IsUpdated)
+                        {
+                            <div class="alert alert-success">
+                                <span>You successfully updated your profile.</span>
+                            </div>
+                        }
+                        @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
+                        <div class="control-group">
+                            @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            @Html.LabelFor(m => m.Age, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input type="submit" value="Update" class="btn" />
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div><!--/span-->
     </div><!--/row-->
 </div>
+
+@section scripts{
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+}

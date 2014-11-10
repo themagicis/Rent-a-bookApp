@@ -7,28 +7,28 @@
 <div class="card">
     <h2 class="card-heading simple">Edit Address:</h2>
     <div class="card-body">
-            @using (Ajax.BeginForm("SaveAddress", "Address", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = @Model.Id.ToString() }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
-                @Html.HiddenFor(m => m.Id)
-                <div class="control-group">
-                    @Html.LabelFor(model => model.TownId, "Town", new { @class = "control-label" })
-                    <div class="controls">
-                        @Html.DropDownListFor(m => m.TownId, Model.Towns, "Select town")
-                    </div>
+        @using (Ajax.BeginForm("SaveAddress", "Address", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = @Model.Id.ToString() }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
+            @Html.HiddenFor(m => m.Id)
+            <div class="control-group">
+                @Html.LabelFor(model => model.TownId, "Town", new { @class = "control-label" })
+                <div class="controls">
+                    @Html.DropDownListFor(m => m.TownId, Model.Towns, "Select town")
                 </div>
-                <div class="control-group">
-                    @Html.LabelFor(m => m.FullAddress, new { @class = "control-label" })
-                    <div class="controls">
-                        @Html.EditorFor(m => m.FullAddress, new { @class = "form-control" })
-                    </div>
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(m => m.FullAddress, new { @class = "control-label" })
+                <div class="controls">
+                    @Html.EditorFor(m => m.FullAddress, new { @class = "form-control" })
                 </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <input type="submit" value="Save" class="btn" />
-                    </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" value="Save" class="btn btn-success" />
                 </div>
-            }
+            </div>
+        }
     </div>
 </div>

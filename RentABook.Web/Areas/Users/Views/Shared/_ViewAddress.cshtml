@@ -15,7 +15,7 @@
             <strong>Address:</strong> @Model.FullAddress
         </p>
         <p>
-            @Ajax.ActionLink("Delete", "DeleteAddress", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = @Model.Id.ToString(), HttpMethod = "Post", OnSuccess = "deleteSuccess(" + @Model.Id + ")" }, new { id = "delete-button", @class = "btn" })
+            @Ajax.ActionLink("Delete", "DeleteAddress", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = @Model.Id.ToString(), HttpMethod = "Post", OnSuccess = "deleteSuccess(" + @Model.Id + ")" }, new { id = "delete-button", @class = "btn btn-danger pull-right" })
             @Ajax.ActionLink("Edit", "EditAddress", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = @Model.Id.ToString(), HttpMethod = "Post" }, new { id = "edit-button", @class = "btn" })
         </p>
     </div>

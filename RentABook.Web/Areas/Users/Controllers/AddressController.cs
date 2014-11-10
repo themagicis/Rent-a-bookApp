@@ -1,16 +1,20 @@
-﻿using RentABook.Data.Repositories;
-using RentABook.Models.Poco;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using RentABook.Web.Areas.Users.Models;
-using System.Net;
-
-namespace RentABook.Web.Areas.Users.Controllers
+﻿namespace RentABook.Web.Areas.Users.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Web;
+    using System.Web.Mvc;
+
+    using Microsoft.AspNet.Identity;
+
+    using RentABook.Data.Repositories;
+    using RentABook.Models.Poco;
+    using RentABook.Web.Areas.Users.Models;
+
+    [Authorize]
+    [ValidateInput(false)]
     public class AddressController : Controller
     {
         private IRepository<Town> townsDb;
