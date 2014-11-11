@@ -2012,7 +2012,6 @@ table {
 
 .table th,
 .table td {
-  padding: 8px;
   line-height: 20px;
   text-align: center;
   vertical-align: top;
@@ -6031,10 +6030,12 @@ input.search-query {
 }
 
 .navbar .nav > li > a.dropdown-toggle.btn-notification {
-  width: 29px;
+  width: auto;
   height: 27px;
   min-height: 27px;
-  padding: 0;
+  padding: 0px;
+  padding-left: 5px;
+  padding-right: 5px;
   *margin-left: .3em;
   font-size: 13px;
   font-weight: bold;

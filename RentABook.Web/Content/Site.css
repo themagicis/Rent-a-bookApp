@@ -65,6 +65,7 @@ table#top-owners{
 }
 
 table#top-owners span, table#latest-books span {
+    padding-top: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
