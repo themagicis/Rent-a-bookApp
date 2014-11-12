@@ -9,6 +9,7 @@ namespace RentABook.Web.Areas.Users.Models
 {
     public class AddressViewModel
     {
+        [Required]
         [Display(Name="Town")]
         public int? TownId { get; set; }
 

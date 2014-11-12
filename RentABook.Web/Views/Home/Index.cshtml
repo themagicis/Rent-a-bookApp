@@ -8,7 +8,7 @@
         <p>This web site is created to provide platform for book sharing. Here you can share the books you own with other people and find a lot of new interesting readings for you.</p>
         @if (User.Identity.IsAuthenticated)
         {
-            @Html.ActionLink("Share", "Create", "Books", null, new { @class = "btn btn-primary btn-large" })
+            @Html.ActionLink("Share", "Create", "Book", new { area = "Books" }, new { @class = "btn btn-primary btn-large" })
         }
         else
         {

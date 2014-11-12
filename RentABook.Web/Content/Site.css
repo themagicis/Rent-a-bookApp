@@ -168,3 +168,10 @@ div.favourite-item a {
 div.favourite-item a:hover {
     color: #0161fd;
 }
+
+div.controls.options label {
+    position: relative;
+    top: 3px;
+    margin-right: 30px;
+    display: inline-block;
+}

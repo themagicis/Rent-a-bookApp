@@ -1,0 +1,108 @@
+﻿@using RentABook.Models.Poco
+@model RentABook.Web.Areas.Books.Models.BookInputModel
+@{
+    ViewBag.Title = "Share a book";
+}
+
+<div class="container">
+    <div class="card">
+        <h2 class="card-heading simple">@ViewBag.Title</h2>
+        <div class="card-body">
+            <section id="loginForm">
+                @using (Html.BeginForm("Create", "Book", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Author, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Author, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Title, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ShortDescription, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.ShortDescription, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Condition, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Condition)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.CategoryId, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.ListBoxFor(m => m.CategoryId, Model.Categories)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.AddressId, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.AddressId, Model.Addresses, "Select book location")
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.Label("Rent type", new { @class = "control-label" })
+                        <div class="controls options">
+                            @Html.RadioButtonFor(m => m.RentType, RentType.Free, new { id = "rbFree" })
+                            @Html.Label("rbFree", "Free")
+                            @Html.RadioButtonFor(m => m.RentType, RentType.Paid, new { id = "rbPaid" })
+                            @Html.Label("rbPaid", "Paid")
+                            @Html.RadioButtonFor(m => m.RentType, RentType.Deposit, new { id = "rbDeposit" })
+                            @Html.Label("rbDeposit", "Deposit")
+                        </div>
+                    </div>
+                    <div class="control-group" id="group-price" style="display:none">
+                        @Html.LabelFor(m => m.Price, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Price) $
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <input type="submit" value="Save" class="btn btn-success" />
+                        </div>
+                    </div>
+                }
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/ion.rangeSlider.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example_id').ionRangeSlider({
+                values: [
+                    "In bad condition", "Very used", "Noramlly used",
+                    "Slightly used", "Very good condition", "Like new",
+                ],
+                type: 'single',
+                hasGrid: true,
+                hideMinMax: true
+            });
+
+            $('#rbFree').change(function () {
+                $('#group-price').hide();
+            });
+
+            $('#rbPaid').change(function () {
+                $('#group-price').show();
+            });
+
+            $('#rbDeposit').change(function () {
+                $('#group-price').show();
+            });
+        });
+    </script>
+}
+
