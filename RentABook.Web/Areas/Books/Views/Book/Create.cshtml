@@ -34,7 +34,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.Condition, new { @class = "control-label" })
                         <div class="controls">
-                            @Html.EditorFor(m => m.Condition)
+                            @Html.EditorFor(m => m.Condition, new { controlId = "condition", values="In bad condition,Very used,Noramlly used,Slightly used,Very good condition,Like new" })
                         </div>
                     </div>
                     <div class="control-group">
@@ -81,7 +81,7 @@
     <script src="~/Scripts/ion.rangeSlider.js"></script>
     <script>
         $(document).ready(function () {
-            $('#example_id').ionRangeSlider({
+            $('#condition').ionRangeSlider({
                 values: [
                     "In bad condition", "Very used", "Noramlly used",
                     "Slightly used", "Very good condition", "Like new",

@@ -10,6 +10,7 @@ namespace RentABook.Web.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using Ninject.Extensions.NamedScope;
 
     using RentABook.Data;
     using RentABook.Data.Repositories;
@@ -64,7 +65,7 @@ namespace RentABook.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<DbContext>().To<RentABookDbContext>();
+            kernel.Bind<DbContext>().To<RentABookDbContext>().InRequestScope();
 
             kernel.Bind(typeof(IRepository<>)).To(typeof(EFRepository<>));
         }        

@@ -47,6 +47,8 @@
 
         public virtual ICollection<Book> Books { get; set; }
 
+        public virtual ICollection<BookHistory> BookHistories { get; set; }
+
         public virtual ICollection<BookRent> RentsAsOwner { get; set; }
 
         public virtual ICollection<BookRent> RentsAsReceiver { get; set; }

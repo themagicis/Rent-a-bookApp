@@ -118,7 +118,7 @@ div.span4.fixed-height:nth-of-type(3n+1) {
     margin-left: 0;
 }
 
-ul#user-menu i {
+ul.dropdown-menu i {
     width: 12px;
     display: inline-block;
     position: relative;
@@ -174,4 +174,21 @@ div.controls.options label {
     top: 3px;
     margin-right: 30px;
     display: inline-block;
+}
+
+option {
+    padding: 3px;
+    margin-bottom: 2px;
+    border-radius: 2px;
+}
+
+div.validation-summary-errors ul {
+    margin: 0;
+}
+
+form.dropdown-menu.form-search {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    width: 265px;
 }

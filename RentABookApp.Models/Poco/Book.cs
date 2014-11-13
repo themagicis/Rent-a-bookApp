@@ -8,6 +8,7 @@
         {
             this.History = new HashSet<BookHistory>();
             this.Requests = new HashSet<RentRequest>();
+            this.Categories = new HashSet<Category>();
         }
 
         public int Id { get; set; }
@@ -20,8 +21,7 @@
 
         public int Condition { get; set; }
 
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
 
         public string OwnerId { get; set; }
         public virtual AppUser Owner { get; set; }

@@ -17,6 +17,7 @@
             this.Property(x => x.State).HasColumnName("State").IsRequired();
 
             this.HasRequired(x => x.Book).WithMany(x => x.History).HasForeignKey(x => x.BookId);
+            this.HasRequired(x => x.User).WithMany(x => x.BookHistories).HasForeignKey(x => x.UserId).WillCascadeOnDelete(false);
         }
     }
 }

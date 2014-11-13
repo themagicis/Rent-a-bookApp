@@ -18,7 +18,7 @@
             this.Property(x => x.ShortDescription).HasColumnName("ShortDescription").HasMaxLength(200).IsOptional();
             this.Property(x => x.Condition).HasColumnName("Condition").IsRequired();
 
-            this.HasRequired(x => x.Category).WithMany(x => x.Books).HasForeignKey(x => x.CategoryId);
+            this.HasMany(x => x.Categories).WithMany(x => x.Books);
             this.HasRequired(x => x.Owner).WithMany(x => x.Books).HasForeignKey(x => x.OwnerId);
             this.HasRequired(x => x.Address).WithMany(x => x.Books).HasForeignKey(x => x.AddressId);
         }
