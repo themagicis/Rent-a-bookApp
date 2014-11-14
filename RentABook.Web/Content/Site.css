@@ -60,7 +60,7 @@ img.logo {
     width: 100%;
 }
 
-table#top-owners{
+table#top-owners, table#latest-books {
     table-layout: fixed;
 }
 
@@ -78,32 +78,32 @@ table#top-owners col:nth-child(1) {
 }
 
 table#top-owners col:nth-child(2) {
-    width: 45%;
+    width: 65%;
 }
 
 table#top-owners col:nth-child(3) {
-    width: 20%;
+    width: 15%;
 }
 
 table#top-owners col:nth-child(4) {
     width: 15%;
 }
 
-table#top-owners col:nth-child(5) {
-    width: 15%;
-}
-
 
 table#latest-books col:nth-child(1) {
-    width: 32%;
+    width: 30%;
 }
 
 table#latest-books col:nth-child(2) {
-    width: 32%;
+    width: 30%;
 }
 
 table#latest-books col:nth-child(3) {
-    width: 32%;
+    width: 20%;
+}
+
+table#latest-books col:nth-child(3) {
+    width: 20%;
 }
 
 div.validation-summary-valid {

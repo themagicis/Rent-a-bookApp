@@ -1,5 +1,6 @@
 ﻿namespace RentABook.Models.Poco
 {
+    using System;
     using System.Collections.Generic;
 
     public class Book
@@ -34,6 +35,8 @@
         public RentType RentType { get; set; }
 
         public decimal? Price { get; set; }
+
+        public DateTime DateCreated { get; set; }
 
         public virtual ICollection<BookHistory> History { get; set; }
 

@@ -79,7 +79,8 @@ namespace RentABook.Web.Areas.Books.Controllers
                     ShortDescription = newBook.ShortDescription,
                     State = BookState.Available,
                     Title = newBook.Title,
-                    Categories = cats
+                    Categories = cats,
+                    DateCreated = DateTime.Now
                 };
 
                 this.books.Add(bookDb);

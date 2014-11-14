@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RentABook.Web.Models.HomeStatisticViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -29,30 +30,26 @@
                             <col />
                             <col />
                             <col />
+                            <col />
                         </colgroup>
                         <thead>
                             <tr>
                                 <th>Author</th>
                                 <th>Title</th>
+                                <th>Town</th>
                                 <th>Owner</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><span>Mark</span></td>
-                                <td><span>Otto</span></td>
-                                <td>mdo</td>
-                            </tr>
-                            <tr>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fat</td>
-                            </tr>
-                            <tr>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                            </tr>
+                            @foreach (var book in Model.LatestBooks)
+                            {
+                                <tr>
+                                    <td><span>@book.Authors</span></td>
+                                    <td><span>@book.Title</span></td>
+                                    <td><span>@book.Town</span></td>
+                                    <td><span>@book.OwnerName</span></td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -69,39 +66,27 @@
                             <col />
                             <col />
                             <col />
-                            <col />
                         </colgroup>
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Town</th>
                                 <th>Books</th>
                                 <th>Score</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><span>Mark ewf lekw fl;kewnklf jsewfj ewf ;sdhf; sdfh s;dfh sdlp d;gjewgjeowfh klsd; gsdlg</span></td>
-                                <td><span>Mark ewf lekw fl;kewnklf jsewfj ewf ;sdhf; sdfh s;dfh sdlp d;gjewgjeowfh klsd; gsdlg</span></td>
-                                <td>10</td>
-                                <td>120</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>6</td>
-                                <td>45</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>12</td>
-                                <td>20</td>
-                            </tr>
+                            @{int position = 1;}
+                            @foreach (var owner in Model.TopOwners)
+                            {
+                                <tr>
+                                    <td><span>@position</span></td>
+                                    <td><span><a href="~/Users/@owner.OwnerName">@owner.OwnerFullName</a></span></td>
+                                    <td><span>@owner.BooksCount</span></td>
+                                    <td><span>@owner.Score</span></td>
+                                </tr>
+                                position++;
+                            }
                         </tbody>
                     </table>
                 </div>
