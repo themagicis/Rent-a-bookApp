@@ -192,3 +192,8 @@ form.dropdown-menu.form-search {
     padding-left: 15px;
     width: 265px;
 }
+
+p.large {
+    margin: 15px;
+    font-size: 1.2em;
+}

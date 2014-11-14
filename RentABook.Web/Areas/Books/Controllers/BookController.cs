@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Net;
 
 namespace RentABook.Web.Areas.Books.Controllers
 {
@@ -22,6 +23,45 @@ namespace RentABook.Web.Areas.Books.Controllers
             this.categories = categories;
             this.addresses = addresses;
             this.books = books;
+        }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            bool bookExist = books.All().Any(b => b.Id == id);
+
+            if (!bookExist)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            BookDetailsViewModel bookModel = books.All().Where(b => b.Id == id).Select(b => new BookDetailsViewModel
+            {
+                Address = b.Address.FullAddress,
+                Author = b.Author,
+                Categories = b.Categories.Select(c => c.Name).ToList(),
+                Condition = b.Condition,
+                Id = b.Id,
+                OwnerId = b.OwnerId,
+                OwnerName = b.Owner.FirstName + " " + b.Owner.LastName,
+                Price = b.Price,
+                RentType = b.RentType,
+                ShortDescription = b.ShortDescription,
+                State = b.State,
+                Title = b.Title,
+                Town = b.Address.Town.Name
+            }).First();
+
+            string currentUserId = User.Identity.GetUserId();
+            bool isUserOwner = bookModel.OwnerId == currentUserId;
+            bool isAdmin = User.IsInRole("Admin");
+
+            if (bookModel.State == BookState.Archived && !(isUserOwner || isAdmin))
+            {
+                return View("Archive");
+            }
+
+            return View(bookModel);
         }
 
         [HttpGet]
