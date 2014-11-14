@@ -197,3 +197,46 @@ p.large {
     margin: 15px;
     font-size: 1.2em;
 }
+
+div.card-body h3 {
+    position: relative;
+}
+
+div.card-body h3 a {
+    position: absolute;
+    right: 0;
+}
+
+.details label.control-label {
+    width: 110px;
+    display: inline-block;
+    cursor: default;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 35px;
+}
+
+.details label.low {
+    position: relative;
+    top: 25px;
+}
+
+.details div {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.details div.span12 span.data {
+   display:inline-block;
+   text-align: left;
+   width: 225px;
+}
+
+.details span.control-label {
+    margin-right: 5px;
+}
+
+.details p#categories {
+    margin-bottom: 0;
+    margin-left: -70px;
+}

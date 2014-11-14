@@ -81,15 +81,7 @@
     <script src="~/Scripts/ion.rangeSlider.js"></script>
     <script>
         $(document).ready(function () {
-            $('#condition').ionRangeSlider({
-                values: [
-                    "In bad condition", "Very used", "Noramlly used",
-                    "Slightly used", "Very good condition", "Like new",
-                ],
-                type: 'single',
-                hasGrid: true,
-                hideMinMax: true
-            });
+            $("#condition").ionRangeSlider();
 
             $('#rbFree').change(function () {
                 $('#group-price').hide();

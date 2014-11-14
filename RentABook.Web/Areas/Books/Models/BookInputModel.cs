@@ -27,7 +27,7 @@ namespace RentABook.Web.Areas.Books.Models
         public int Condition { get; set; }
 
         [Required]
-        [Display(Name = "Category")]
+        [Display(Name = "Genre(s)")]
         public int[] CategoryId { get; set; }
 
         public SelectList Categories { get; set; }

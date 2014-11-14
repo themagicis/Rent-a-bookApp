@@ -1,6 +1,7 @@
 ﻿using RentABook.Models.Poco;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -16,14 +17,20 @@ namespace RentABook.Web.Areas.Books.Models
 
         public string ShortDescription { get; set; }
 
+        [UIHint("Slider")]
+        [Display(Name = "Condition")]
         public int Condition { get; set; }
 
         public IEnumerable<string> Categories { get; set; }
 
         public string OwnerId { get; set; }
 
-        public string OwnerName { get; set; }
+        public string OwnerUserName { get; set; }
 
+        [Display(Name = "Owner")]
+        public string OwnerFullName { get; set; }
+
+        [Display(Name = "Location of book")]
         public string Address { get; set; }
 
         public string Town { get; set; }

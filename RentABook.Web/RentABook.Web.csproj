@@ -249,6 +249,7 @@
     <Content Include="Areas\Books\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Books\Views\Book\Create.cshtml" />
     <Content Include="Areas\Books\Views\Book\Archive.cshtml" />
+    <Content Include="Areas\Books\Views\Book\Details.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -284,6 +285,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Users\Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Slider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentABook.Data\RentABook.Data.csproj">

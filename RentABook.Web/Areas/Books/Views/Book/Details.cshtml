@@ -1,0 +1,87 @@
+﻿@using RentABook.Models.Poco
+@model RentABook.Web.Areas.Books.Models.BookDetailsViewModel
+@{
+    ViewBag.Title = "Book details";
+}
+
+<div class="container">
+    <div class="card">
+        <h2 class="card-heading simple">@ViewBag.Title</h2>
+        <div class="card-body">
+            <section id="bookDetails" class="details text-center">
+                <header class="row text-center">
+                    <h3>@Model.Title <a class="btn btn-primary btn-large pull-right">Request</a></h3>
+                    <h4><em>@Model.Author</em></h4>
+                    <div>
+                        @Model.ShortDescription
+                    </div>
+                </header>
+                <div class="row">
+                    <div class="span12">
+                        <p id="categories">
+                            @foreach (var category in Model.Categories)
+                            {
+                                <span class="label">@category</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        @Html.LabelFor(m => m.Condition, new { @class = "control-label low" })
+                        @Html.DisplayFor(m => m.Condition, new { controlId = "condition", values = "In bad condition,Very used,Noramlly used,Slightly used,Very good condition,Like new" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        @Html.LabelFor(m => m.RentType, new { @class = "control-label" })
+                        @if (Model.RentType == RentType.Free)
+                        {
+                            <span class="data">@Html.DisplayFor(m => m.RentType)</span>
+                        }
+                        else
+                        {
+                            <span class="data">@Html.DisplayFor(m => m.RentType)  (@Html.DisplayFor(m => m.Price) $)</span>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        @Html.LabelFor(m => m.OwnerFullName, new { @class = "control-label" })
+                        <span class="data"><a href="~/Users/@Model.OwnerUserName">@Model.OwnerFullName</a></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        @Html.LabelFor(m => m.Address, new { @class = "control-label" })
+                        <span class="data">@Model.Town / @Model.Address</span>
+</div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/ion.rangeSlider.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#condition').ionRangeSlider();
+
+            $('#rbFree').change(function () {
+                $('#group-price').hide();
+            });
+
+            $('#rbPaid').change(function () {
+                $('#group-price').show();
+            });
+
+            $('#rbDeposit').change(function () {
+                $('#group-price').show();
+            });
+        });
+    </script>
+}
+
+
+
