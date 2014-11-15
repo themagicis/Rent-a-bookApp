@@ -1,10 +1,21 @@
-﻿namespace RentABook.Models.Poco
+﻿using System.ComponentModel.DataAnnotations;
+namespace RentABook.Models.Poco
 {
     public enum BookState
     {
-        Available = 0,
-        InRent = 1,
-        NotReturned = 2,
-        Archived = 3
+        [Display(Name = "Waiting for approval")]
+        WaitingForApproval = 0,
+
+        [Display(Name = "Book is available")]
+        Available = 1,
+
+        [Display(Name = "Book is rented")]
+        InRent = 2,
+
+        [Display(Name = "Book is not returned")]
+        NotReturned = 3,
+
+        [Display(Name = "Book is archived")]
+        Archived = 4
     }
 }

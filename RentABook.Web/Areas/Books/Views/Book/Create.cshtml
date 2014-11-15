@@ -12,6 +12,10 @@
                 @using (Html.BeginForm("Create", "Book", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
                     @Html.AntiForgeryToken()
+                    <div class="alert alert-block">
+                        <strong>Important!</strong>
+                        Book will be send for approval to administrator first.
+                    </div>
                     @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
                     <div class="control-group">
                         @Html.LabelFor(m => m.Author, new { @class = "control-label" })
@@ -68,7 +72,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <input type="submit" value="Save" class="btn btn-success" />
+                            <input type="submit" value="Send for approval" class="btn btn-success" />
                         </div>
                     </div>
                 }

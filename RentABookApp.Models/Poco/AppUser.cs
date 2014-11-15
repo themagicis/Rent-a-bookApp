@@ -19,6 +19,7 @@
             this.RentsAsReceiver = new HashSet<BookRent>();
             this.RequestsAsOwner = new HashSet<RentRequest>();
             this.RequestsAsRequester = new HashSet<RentRequest>();
+            this.Comments = new HashSet<Comment>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
@@ -56,5 +57,7 @@
         public virtual ICollection<RentRequest> RequestsAsOwner { get; set; }
 
         public virtual ICollection<RentRequest> RequestsAsRequester { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

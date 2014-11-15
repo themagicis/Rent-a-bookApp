@@ -14,7 +14,7 @@
 
             this.Property(x => x.Id).HasColumnName("Id");
             this.Property(x => x.DateRequested).HasColumnName("DateRequested").HasColumnType("datetime").IsRequired();
-            this.Property(x => x.Message).HasColumnName("Message").HasMaxLength(500).IsRequired();
+            this.Property(x => x.Message).HasColumnName("Message").HasMaxLength(500);
             this.Property(x => x.DateStart).HasColumnName("DateStart").HasColumnType("datetime").IsRequired();
             this.Property(x => x.DateEnd).HasColumnName("DateEnd").HasColumnType("datetime").IsRequired();
             this.Property(x => x.State).HasColumnName("State").IsRequired();

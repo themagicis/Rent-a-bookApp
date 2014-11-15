@@ -6,73 +6,140 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
 using System.Net;
+using RentABook.Web.Code;
 
 namespace RentABook.Web.Areas.Books.Controllers
 {
     [Authorize]
-    public class BookController : Controller
+    public class BookController : BaseController
     {
         private IRepository<Category> categories;
         private IRepository<Address> addresses;
         private IRepository<Book> books;
+        private IRepository<RentRequest> requests;
 
-        public BookController(IRepository<Category> categories, IRepository<Address> addresses, IRepository<Book> books)
+        public BookController(IRepository<Category> categories, IRepository<Address> addresses, IRepository<Book> books, IRepository<RentRequest> requests)
         {
             this.categories = categories;
             this.addresses = addresses;
             this.books = books;
+            this.requests = requests;
         }
 
         [HttpGet]
         public ActionResult Details(int id)
         {
-            bool bookExist = books.All().Any(b => b.Id == id);
+            var bookDb = books.All().Where(b => b.Id == id).FirstOrDefault();
 
-            if (!bookExist)
+            if (bookDb == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            BookDetailsViewModel bookModel = books.All().Where(b => b.Id == id).Select(b => new BookDetailsViewModel
+            BookDetailsViewModel bookModel = new BookDetailsViewModel
             {
-                Address = b.Address.FullAddress,
-                Author = b.Author,
-                Categories = b.Categories.Select(c => c.Name).ToList(),
-                Condition = b.Condition,
-                Id = b.Id,
-                OwnerId = b.Owner.Id,
-                OwnerUserName = b.Owner.UserName,
-                OwnerFullName = b.Owner.FirstName + " " + b.Owner.LastName,
-                Price = b.Price,
-                RentType = b.RentType,
-                ShortDescription = b.ShortDescription,
-                State = b.State,
-                Title = b.Title,
-                Town = b.Address.Town.Name
-            }).First();
+                Address = bookDb.Address.FullAddress,
+                Author = bookDb.Author,
+                Categories = bookDb.Categories.Select(c => c.Name).ToList(),
+                Condition = bookDb.Condition,
+                Id = bookDb.Id,
+                OwnerId = bookDb.Owner.Id,
+                OwnerUserName = bookDb.Owner.UserName,
+                OwnerFullName = bookDb.Owner.FirstName + " " + bookDb.Owner.LastName,
+                Price = bookDb.Price,
+                RentType = bookDb.RentType,
+                ShortDescription = bookDb.ShortDescription,
+                State = bookDb.State,
+                Title = bookDb.Title,
+                Town = bookDb.Address.Town.Name,
+                Comments = bookDb.Comments.Select(c => new CommentViewModel
+                {
+                    Content = c.Content,
+                    DateCommented = c.DateCreated,
+                    AuthorName = c.Author.FirstName + " " + c.Author.LastName
+                }).ToList()
+            };
 
-            string currentUserId = User.Identity.GetUserId();
-            bool isUserOwner = bookModel.OwnerId == currentUserId;
-            bool isAdmin = User.IsInRole("Admin");
+            bookModel.BookState = GetBookState(bookDb);
 
-            if (bookModel.State == BookState.Archived && !(isUserOwner || isAdmin))
+            if ((bookModel.State == BookState.Archived || bookModel.State == BookState.WaitingForApproval) &&
+                !(bookModel.BookState.IsUserOwner || bookModel.BookState.IsAdmin))
             {
-                return View("Archive");
+                return View("NotAvailable");
             }
 
             return View(bookModel);
+        }
+
+        [HttpPost]
+        public ActionResult RequestBook(RequestBookInputModel model)
+        {
+            var bookDb = books.All().Where(b => b.Id == model.BookId).FirstOrDefault();
+
+            if (bookDb == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            if (bookDb.State != BookState.Available)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var bookStateModel = GetBookState(bookDb);
+
+            if (bookStateModel.IsRequested)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            string[] dates = model.DateSpan.Split(' ');
+            DateTime startTime = DateTime.Parse(dates[0]);
+            DateTime endTime = DateTime.Parse(dates[2]);
+
+            this.requests.Add(new RentRequest
+            {
+                DateRequested = DateTime.Now,
+                BookId = bookDb.Id,
+                OwnerId = bookDb.OwnerId,
+                RequesterId = this.CurrentUserId,
+                DateStart = startTime,
+                DateEnd = endTime,
+                State = RequestState.Requested
+            });
+            this.requests.SaveChanges();
+
+            bookStateModel.IsRequested = true;
+
+            return PartialView("BookState", bookStateModel);
+        }
+
+        private BookStateViewModel GetBookState(Book book)
+        {
+            var bookStateModel = new BookStateViewModel();
+            bookStateModel.BookId = book.Id;
+            bookStateModel.State = book.State;
+
+            
+            bool isUserOwner = book.OwnerId == this.CurrentUserId;
+            bookStateModel.IsUserOwner = isUserOwner;
+
+            bool isAdmin = User.IsInRole("Admin");
+            bookStateModel.IsAdmin = isAdmin;
+
+            bookStateModel.IsRequested = requests.All().Any(r => r.BookId == book.Id && r.RequesterId == this.CurrentUserId && r.State == RequestState.Requested);
+
+            return bookStateModel;
         }
 
         [HttpGet]
         public ActionResult Create()
         {
             var catList = new SelectList(categories.All().ToList(), "Id", "Name", "");
-            string currentUserId = User.Identity.GetUserId();
             var addressList = new SelectList(addresses
                 .All()
-                .Where(a => a.UserId == currentUserId)
+                .Where(a => a.UserId == this.CurrentUserId)
                 .Select(a => new
                 {
                     Id = a.Id,
@@ -95,7 +162,7 @@ namespace RentABook.Web.Areas.Books.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookInputModel newBook)
         {
-            string currentUserId = User.Identity.GetUserId();
+            string currentUserId = this.CurrentUserId;
 
             if (newBook.RentType == RentType.Deposit || newBook.RentType == RentType.Paid)
             {

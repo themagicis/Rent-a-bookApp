@@ -185,16 +185,20 @@
     <Compile Include="Areas\Books\Controllers\BookController.cs" />
     <Compile Include="Areas\Books\Models\BookDetailsViewModel.cs" />
     <Compile Include="Areas\Books\Models\BookInputModel.cs" />
+    <Compile Include="Areas\Books\Models\BookStateViewModel.cs" />
+    <Compile Include="Areas\Books\Models\RequestBookInputModel.cs" />
     <Compile Include="Areas\Users\Controllers\AddressController.cs" />
     <Compile Include="Areas\Users\Controllers\FavouritesController.cs" />
     <Compile Include="Areas\Users\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Users\Models\AddressDetailsViewModel.cs" />
     <Compile Include="Areas\Users\Models\AddressViewModel.cs" />
+    <Compile Include="Areas\Books\Models\CommentViewModel.cs" />
     <Compile Include="Areas\Users\Models\EditAddressViewModel.cs" />
     <Compile Include="Areas\Users\Models\FavouriteItemViewModel.cs" />
     <Compile Include="Areas\Users\Models\UpdateProfileViewModel.cs" />
     <Compile Include="Areas\Users\Models\UserDetailsViewModel.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
+    <Compile Include="Code\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -202,6 +206,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DisplayEnum.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HomeStatisticViewModel.cs" />
     <Compile Include="Models\LatestBooksViewModel.cs" />
@@ -248,8 +253,10 @@
     <Content Include="Areas\Books\Views\web.config" />
     <Content Include="Areas\Books\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Books\Views\Book\Create.cshtml" />
-    <Content Include="Areas\Books\Views\Book\Archive.cshtml" />
+    <Content Include="Areas\Books\Views\Book\NotAvailable.cshtml" />
     <Content Include="Areas\Books\Views\Book\Details.cshtml" />
+    <Content Include="Areas\Books\Views\Shared\BookState.cshtml" />
+    <Content Include="Areas\Books\Views\Shared\RequestBook.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -286,6 +293,7 @@
     <Content Include="Areas\Users\Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Slider.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Calendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentABook.Data\RentABook.Data.csproj">
@@ -308,7 +316,7 @@
     <Folder Include="Areas\Administration\Controllers\" />
     <Folder Include="Areas\Administration\Models\" />
     <Folder Include="Areas\Administration\Views\Shared\" />
-    <Folder Include="Areas\Books\Views\Shared\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -31,6 +31,7 @@
             modelBuilder.Configurations.Add(new FeedbackMap());
             modelBuilder.Configurations.Add(new RentRequestMap());
             modelBuilder.Configurations.Add(new TownMap());
+            modelBuilder.Configurations.Add(new CommentMap());
 
             base.OnModelCreating(modelBuilder);
         }

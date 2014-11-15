@@ -1,0 +1,28 @@
+﻿@model RentABook.Web.Areas.Books.Models.RequestBookInputModel
+
+@using (Ajax.BeginForm("RequestBook", null, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = "book-state-wrapper" }, new { id="sendRequestForm", @class = "dropdown-menu align-right" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
+    @Html.HiddenFor(m => m.BookId)
+    
+    <div class="control-group">
+        @Html.EditorFor(m => m.DateSpan, new { controlId = "datespan" })
+        <div class="controls">
+            <input id="sendbtn" type="button" onclick="sendForm()" value="Send" class="btn btn-success" />
+            <input id="submitbtn" type="submit" value="Send" class="btn btn-success" style="display:none;"/>
+        </div>
+    </div>
+}
+
+<script>
+    function sendForm() {
+        if (!$("#datespan").val()) {
+            toastr.error("Date span is not selected!");
+            return false;
+        }
+
+        document.getElementById('submitbtn').click();
+    }
+</script>
+

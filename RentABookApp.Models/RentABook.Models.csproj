@@ -57,6 +57,7 @@
     <Compile Include="Mappings\BookMap.cs" />
     <Compile Include="Mappings\BookRentMap.cs" />
     <Compile Include="Mappings\CategoryMap.cs" />
+    <Compile Include="Mappings\CommentMap.cs" />
     <Compile Include="Mappings\FavouriteMap.cs" />
     <Compile Include="Mappings\FeedbackMap.cs" />
     <Compile Include="Mappings\RentRequestMap.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Poco\BookRent.cs" />
     <Compile Include="Poco\BookState.cs" />
     <Compile Include="Poco\Category.cs" />
+    <Compile Include="Poco\Comment.cs" />
     <Compile Include="Poco\Favourite.cs" />
     <Compile Include="Poco\Feedback.cs" />
     <Compile Include="Poco\RentRequest.cs" />

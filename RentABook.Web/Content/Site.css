@@ -198,13 +198,19 @@ p.large {
     font-size: 1.2em;
 }
 
-div.card-body h3 {
+div.card-body {
     position: relative;
 }
 
-div.card-body h3 a {
+div.card-body div#book-state-wrapper {
     position: absolute;
-    right: 0;
+    right: 10px;
+}
+
+div.card-body div.book-state {
+    font-size: 2em;
+    font-style: italic;
+    margin-bottom: 25px;
 }
 
 .details label.control-label {
@@ -221,9 +227,9 @@ div.card-body h3 a {
     top: 25px;
 }
 
-.details div {
+.details div.row {
     display: inline-block;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .details div.span12 span.data {
@@ -239,4 +245,51 @@ div.card-body h3 a {
 .details p#categories {
     margin-bottom: 0;
     margin-left: -70px;
+}
+
+.details div.condition-slider {
+    display: inline-block;
+    margin: 0;
+}
+
+form.form-search select {
+    width: 250px;
+}
+
+form.form-search p {
+    margin-top: 10px;
+}
+
+form.form-search p:last-of-type {
+    margin-bottom: 0;
+}
+
+article#comments div.heading {
+    display: inline-block;
+    border-bottom: 1px solid lightgray;
+}
+
+article#comments div.content {
+    padding: 10px;
+}
+
+article#comments div.comment {
+    display: inline-block;
+    padding: 15px;
+    margin-bottom: 15px;
+    width: 400px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 6px 1px #bbb;
+    -moz-box-shadow: 0px 0px 6px 1px #bbb;
+    box-shadow: 0px 0px 6px 1px #bbb;
+}
+
+div#date-range-container {
+    margin: 10px;
+}
+
+form.align-right {
+    right: 0 !important;
+    left: auto;
 }

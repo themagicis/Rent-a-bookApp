@@ -1,0 +1,29 @@
+﻿@using RentABook.Web.Helpers
+@using RentABook.Models.Poco
+@using RentABook.Web.Areas.Books.Models
+
+@model BookStateViewModel
+
+<div class="book-state">
+    @Model.State.DisplayFor()
+</div>
+@if (Model.State == BookState.Available && !Model.IsUserOwner && !Model.IsRequested)
+{
+    <div class="btn-group">
+        <a class="btn btn-primary btn-large pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+            Request
+            <span class="caret"></span>
+        </a>
+        @Html.Partial("RequestBook", new RequestBookInputModel() { BookId = Model.BookId })
+    </div>
+}
+
+@if (Model.State == BookState.Available && Model.IsRequested)
+{
+    <button class="btn btn-inverse btn-large pull-right" disabled="disabled">Requested</button>
+}
+
+@if (Model.State == BookState.Available && Model.IsUserOwner)
+{
+    <button class="btn btn-primary btn-large pull-right">Manage</button>
+}

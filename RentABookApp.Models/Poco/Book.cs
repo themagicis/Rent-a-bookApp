@@ -10,6 +10,7 @@
             this.History = new HashSet<BookHistory>();
             this.Requests = new HashSet<RentRequest>();
             this.Categories = new HashSet<Category>();
+            this.Comments = new HashSet<Comment>();
         }
 
         public int Id { get; set; }
@@ -41,5 +42,7 @@
         public virtual ICollection<BookHistory> History { get; set; }
 
         public virtual ICollection<RentRequest> Requests { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@using RentABook.Models.Poco
+
 @model RentABook.Web.Areas.Books.Models.BookDetailsViewModel
 @{
     ViewBag.Title = "Book details";
@@ -9,8 +10,13 @@
         <h2 class="card-heading simple">@ViewBag.Title</h2>
         <div class="card-body">
             <section id="bookDetails" class="details text-center">
+                <div id="book-state-wrapper">
+                    @Html.Partial("BookState", Model.BookState)
+                </div>
                 <header class="row text-center">
-                    <h3>@Model.Title <a class="btn btn-primary btn-large pull-right">Request</a></h3>
+                    <h3>
+                        @Model.Title 
+                    </h3>
                     <h4><em>@Model.Author</em></h4>
                     <div>
                         @Model.ShortDescription
@@ -26,10 +32,13 @@
                         </p>
                     </div>
                 </div>
+                <hr />
                 <div class="row">
                     <div class="span12">
                         @Html.LabelFor(m => m.Condition, new { @class = "control-label low" })
-                        @Html.DisplayFor(m => m.Condition, new { controlId = "condition", values = "In bad condition,Very used,Noramlly used,Slightly used,Very good condition,Like new" })
+                        <div class="condition-slider">
+                            @Html.DisplayFor(m => m.Condition, new { controlId = "condition", values = "In bad condition,Very used,Noramlly used,Slightly used,Very good condition,Like new" })
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -55,7 +64,44 @@
                     <div class="span12">
                         @Html.LabelFor(m => m.Address, new { @class = "control-label" })
                         <span class="data">@Model.Town / @Model.Address</span>
-</div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="span12">
+                        <a href="#">Show comments</a>
+                    </div>
+                </div>
+                <div class="row">
+                    @using (Ajax.BeginForm("SaveAddress", "Address", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = @Model.Id.ToString() }, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
+                        @Html.HiddenFor(m => m.Id)
+                        <div class="control-group">
+                            @Html.Label("Content", "Comment:", new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextArea("Content", new { @class = "form-control", rows="3" })
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <article id="comments">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <div class="span12">
+                                <div class="comment text-left">
+                                    <div class="heading">
+                                        <strong>@comment.AuthorName</strong> commented on @comment.DateCommented:
+                                    </div>
+                                    <div class="content">
+                                        @comment.Content
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </article>
                 </div>
             </section>
         </div>
@@ -63,9 +109,31 @@
 </div>
 
 @section Scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/ion.rangeSlider.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/jquery.daterangepicker.js"></script>
     <script>
         $(document).ready(function () {
+            if ($('#datespan').length) {
+                var startDate = new Date();
+                var numberOfDaysToAdd = 3;
+                startDate.setDate(startDate.getDate() + numberOfDaysToAdd);
+
+                var configObject = {
+                    inline:true,
+                    container: '#date-range-container', 
+                    alwaysOpen: true,
+                    startOfWeek: 'monday',
+                    startDate: startDate,
+                    minDays: 3,
+                    maxDays: 21
+                }				
+                $('#datespan').dateRangePicker(configObject);
+            }
+            
+
             $('#condition').ionRangeSlider();
 
             $('#rbFree').change(function () {
