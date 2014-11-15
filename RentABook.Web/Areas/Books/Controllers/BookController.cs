@@ -52,13 +52,7 @@ namespace RentABook.Web.Areas.Books.Controllers
                 ShortDescription = bookDb.ShortDescription,
                 State = bookDb.State,
                 Title = bookDb.Title,
-                Town = bookDb.Address.Town.Name,
-                Comments = bookDb.Comments.Select(c => new CommentViewModel
-                {
-                    Content = c.Content,
-                    DateCommented = c.DateCreated,
-                    AuthorName = c.Author.FirstName + " " + c.Author.LastName
-                }).ToList()
+                Town = bookDb.Address.Town.Name
             };
 
             bookModel.BookState = GetBookState(bookDb);

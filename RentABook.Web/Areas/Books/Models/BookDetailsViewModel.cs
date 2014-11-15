@@ -42,7 +42,5 @@ namespace RentABook.Web.Areas.Books.Models
         public decimal? Price { get; set; }
 
         public BookStateViewModel BookState { get; set; }
-
-        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

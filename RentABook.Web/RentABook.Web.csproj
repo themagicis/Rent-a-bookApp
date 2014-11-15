@@ -183,9 +183,11 @@
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
     <Compile Include="Areas\Books\BooksAreaRegistration.cs" />
     <Compile Include="Areas\Books\Controllers\BookController.cs" />
+    <Compile Include="Areas\Books\Controllers\CommentsController.cs" />
     <Compile Include="Areas\Books\Models\BookDetailsViewModel.cs" />
     <Compile Include="Areas\Books\Models\BookInputModel.cs" />
     <Compile Include="Areas\Books\Models\BookStateViewModel.cs" />
+    <Compile Include="Areas\Books\Models\CommentInputModel.cs" />
     <Compile Include="Areas\Books\Models\RequestBookInputModel.cs" />
     <Compile Include="Areas\Users\Controllers\AddressController.cs" />
     <Compile Include="Areas\Users\Controllers\FavouritesController.cs" />
@@ -216,8 +218,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\daterangepicker.css" />
     <Content Include="Content\Images\delete_Icon.png" />
     <Content Include="Content\Images\keditbookmarks.png" />
+    <Content Include="Content\Images\loader_large_blue.gif" />
     <Content Include="Content\Images\medal_icon.png" />
     <Content Include="Content\bootplus-responsive.css" />
     <Content Include="Content\bootplus.css" />
@@ -257,6 +261,7 @@
     <Content Include="Areas\Books\Views\Book\Details.cshtml" />
     <Content Include="Areas\Books\Views\Shared\BookState.cshtml" />
     <Content Include="Areas\Books\Views\Shared\RequestBook.cshtml" />
+    <Content Include="Areas\Books\Views\Shared\Comment.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -69,38 +69,34 @@
                 <hr />
                 <div class="row">
                     <div class="span12">
-                        <a href="#">Show comments</a>
+                        <a href="#" id="showComments">Show comments</a>
                     </div>
                 </div>
-                <div class="row">
-                    @using (Ajax.BeginForm("SaveAddress", "Address", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace, UpdateTargetId = @Model.Id.ToString() }, new { @class = "form-horizontal", role = "form" }))
+                <div class="row" id="loader" style="display:none;">
+                    <div class="span12">
+                        <img width="64" src="~/Content/Images/loader_large_blue.gif" />
+                    </div>
+                </div>
+                <div class="row" id="addCommentForm" style="display:none;">
+                    @using (Ajax.BeginForm("Comment", "Comments", new { id = Model.Id }, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.InsertBefore, UpdateTargetId = "comments", OnSuccess="commentSuccess()" }, new { @class = "form-horizontal", role = "form" }))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(false, "", new { @class = "alert alert-block" })
-                        @Html.HiddenFor(m => m.Id)
                         <div class="control-group">
                             @Html.Label("Content", "Comment:", new { @class = "control-label" })
                             <div class="controls">
-                                @Html.TextArea("Content", new { @class = "form-control", rows="3" })
+                                @Html.TextArea("Content", new { id="content", @class = "form-control", rows = "3" })
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <input id="submitbtn" type="submit" value="Submit" class="btn btn-success" />
                             </div>
                         </div>
                     }
                 </div>
-                <div class="row">
+                <div class="row" id="commentsList">
                     <article id="comments">
-                        @foreach (var comment in Model.Comments)
-                        {
-                            <div class="span12">
-                                <div class="comment text-left">
-                                    <div class="heading">
-                                        <strong>@comment.AuthorName</strong> commented on @comment.DateCommented:
-                                    </div>
-                                    <div class="content">
-                                        @comment.Content
-                                    </div>
-                                </div>
-                            </div>
-                        }
                     </article>
                 </div>
             </section>
@@ -115,6 +111,10 @@
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/jquery.daterangepicker.js"></script>
     <script>
+        function commentSuccess() {
+            $('#content').val('');
+        }
+
         $(document).ready(function () {
             if ($('#datespan').length) {
                 var startDate = new Date();
@@ -133,7 +133,6 @@
                 $('#datespan').dateRangePicker(configObject);
             }
             
-
             $('#condition').ionRangeSlider();
 
             $('#rbFree').change(function () {
@@ -146,6 +145,18 @@
 
             $('#rbDeposit').change(function () {
                 $('#group-price').show();
+            });
+
+            $('#showComments').click(function () {
+                $('#loader').show();
+                $.post("/Books/Comments/List/" + @Model.Id, function (data) {
+                    $('#loader').hide();
+                    
+                    $('#addCommentForm').show();
+                    $("#comments").html(data);
+
+                    $('#showComments').hide();
+                });
             });
         });
     </script>

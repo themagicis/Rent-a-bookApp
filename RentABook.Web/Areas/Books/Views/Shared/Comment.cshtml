@@ -1,0 +1,15 @@
+﻿@model IEnumerable<RentABook.Web.Areas.Books.Models.CommentViewModel>
+
+@foreach (var comment in Model)
+{
+    <div class="span12">
+        <div class="comment text-left">
+            <div class="heading">
+                <strong>@comment.AuthorName</strong> commented on @comment.DateCommented:
+            </div>
+            <div class="content">
+                @comment.Content
+            </div>
+        </div>
+    </div>
+}
