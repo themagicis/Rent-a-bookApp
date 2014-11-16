@@ -9,15 +9,17 @@
     using RentABook.Data.Repositories;
     using RentABook.Models.Poco;
     using RentABook.Web.Areas.Users.Models;
+using RentABook.Web.Code;
     
 
     [Authorize]
     [ValidateInput(false)]
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
         private IRepository<AppUser> users;
 
-        public ProfileController(IRepository<AppUser> users)
+        public ProfileController(IRepository<AppUser> users, IRepository<Category> categories, IRepository<Town> towns)
+            :base(categories, towns)
         {
             this.users = users;
         }
@@ -26,10 +28,9 @@
         [HttpGet]
         public ActionResult Settings()
         {
-            string currentUserId = User.Identity.GetUserId();
             var userModel = users
                 .All()
-                .Where(u => u.Id == currentUserId)
+                .Where(u => u.Id == this.CurrentUserId)
                 .Select(u => new UpdateProfileViewModel
                 {
                     FirstName = u.FirstName,
@@ -48,10 +49,9 @@
         {
             if (ModelState.IsValid) 
             {
-                string currentUserId = User.Identity.GetUserId();
                 var user = users
                     .All()
-                    .Where(u => u.Id == currentUserId)
+                    .Where(u => u.Id == this.CurrentUserId)
                     .FirstOrDefault();
 
                 if (user != null) {

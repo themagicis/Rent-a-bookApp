@@ -1,0 +1,11 @@
+﻿@model IEnumerable<RentABook.Web.Areas.Books.Models.ResultBookViewModel>
+
+@foreach (var book in Model)
+{
+    <li>
+        <h3 class="text-center"><span class="pull-left @book.State.ToString().ToLower()">@book.State</span> @book.Title</h3>
+        <h4><em>@book.Author</em> <span class="pull-right">@book.Type</span></h4>
+
+        <div>@book.Description <span class="pull-right">Location: <strong>@book.Town</strong></span></div>
+    </li>
+}

@@ -189,6 +189,8 @@
     <Compile Include="Areas\Books\Models\BookStateViewModel.cs" />
     <Compile Include="Areas\Books\Models\CommentInputModel.cs" />
     <Compile Include="Areas\Books\Models\RequestBookInputModel.cs" />
+    <Compile Include="Areas\Books\Models\ResultBookViewModel.cs" />
+    <Compile Include="Areas\Books\Models\SearchResultViewModel.cs" />
     <Compile Include="Areas\Users\Controllers\AddressController.cs" />
     <Compile Include="Areas\Users\Controllers\FavouritesController.cs" />
     <Compile Include="Areas\Users\Controllers\ProfileController.cs" />
@@ -210,9 +212,10 @@
     </Compile>
     <Compile Include="Helpers\DisplayEnum.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\HomeStatisticViewModel.cs" />
+    <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\LatestBooksViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\TopOwnersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -262,6 +265,8 @@
     <Content Include="Areas\Books\Views\Shared\BookState.cshtml" />
     <Content Include="Areas\Books\Views\Shared\RequestBook.cshtml" />
     <Content Include="Areas\Books\Views\Shared\Comment.cshtml" />
+    <Content Include="Areas\Books\Views\Book\Search.cshtml" />
+    <Content Include="Areas\Books\Views\Shared\BookList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -299,6 +304,7 @@
     <Content Include="Views\Shared\EditorTemplates\Slider.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Slider.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Calendar.cshtml" />
+    <Content Include="Views\Shared\SearchForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentABook.Data\RentABook.Data.csproj">

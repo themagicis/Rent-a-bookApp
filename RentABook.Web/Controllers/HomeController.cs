@@ -10,13 +10,15 @@
     using RentABook.Models.Poco;
     using RentABook.Web.Models;
     using System.Web.Caching;
+    using RentABook.Web.Code;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private IRepository<AppUser> users;
         private IRepository<Book> books;
 
-        public HomeController(IRepository<AppUser> users, IRepository<Book> books)
+        public HomeController(IRepository<AppUser> users, IRepository<Book> books, IRepository<Category> categories, IRepository<Town> towns)
+            :base(categories, towns)
         {
             this.users = users;
             this.books = books;
@@ -24,19 +26,19 @@
 
         public ActionResult Index()
         {
-            HomeStatisticViewModel statistic;
+            HomePageViewModel model;
 
             if (this.HttpContext.Cache["stat"] == null)
             {
-                statistic = new HomeStatisticViewModel
+                model = new HomePageViewModel
                 {
                     TopOwners = GetTopOwners(),
-                    LatestBooks = GetLatestBooks()
+                    LatestBooks = GetLatestBooks(),
                 };
 
                 this.HttpContext.Cache.Insert(
-                    "stat",                           
-                    statistic,                        
+                    "stat",
+                    model,                        
                     null,                             
                     DateTime.Now.AddMinutes(30),     
                     TimeSpan.Zero,                    
@@ -44,9 +46,9 @@
                     null);                            
             }
 
-            statistic = ((HomeStatisticViewModel)this.HttpContext.Cache["stat"]);
+            model = ((HomePageViewModel)this.HttpContext.Cache["stat"]);
 
-            return View(statistic);
+            return View(model);
         }
 
         private IEnumerable<TopOwnersViewModel> GetTopOwners()
@@ -63,7 +65,7 @@
 
         private IEnumerable<LatestBooksViewModel> GetLatestBooks()
         {
-            var result = this.books.All().OrderBy(b => b.DateCreated).Take(5).Select(b => new LatestBooksViewModel
+            var result = this.books.All().OrderByDescending(b => b.DateCreated).Take(5).Select(b => new LatestBooksViewModel
             {
                 Id = b.Id,
                 OwnerName = b.Owner.FirstName + " " + b.Owner.LastName,

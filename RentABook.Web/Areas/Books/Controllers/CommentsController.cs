@@ -17,7 +17,8 @@ namespace RentABook.Web.Areas.Books.Controllers
         private IRepository<Book> books;
         private IRepository<AppUser> users;
 
-        public CommentsController(IRepository<Book> books, IRepository<AppUser> users)
+        public CommentsController(IRepository<Book> books, IRepository<AppUser> users, IRepository<Category> categories, IRepository<Town> towns)
+            :base(categories, towns)
         {
             this.books = books;
             this.users = users;

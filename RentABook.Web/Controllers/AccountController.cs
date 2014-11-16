@@ -14,17 +14,21 @@
 
     using RentABook.Web.Models;
     using RentABook.Models.Poco;
+using RentABook.Web.Code;
+using RentABook.Data.Repositories;
 
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+        public AccountController(IRepository<Category> categories, IRepository<Town> towns)
+            : base(categories, towns)
         {
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+            :base(null, null)
         {
             UserManager = userManager;
             SignInManager = signInManager;

@@ -8,16 +8,18 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Net;
 using RentABook.Web.Areas.Users.Models;
+using RentABook.Web.Code;
 
 namespace RentABook.Web.Areas.Users.Controllers
 {
     [Authorize]
-    public class FavouritesController : Controller
+    public class FavouritesController : BaseController
     {
         private IRepository<AppUser> users;
         private IRepository<Favourite> favs;
 
-        public FavouritesController(IRepository<AppUser> users, IRepository<Favourite> favs)
+        public FavouritesController(IRepository<AppUser> users, IRepository<Favourite> favs, IRepository<Category> categories, IRepository<Town> towns)
+            :base(categories, towns)
         {
             this.users = users;
             this.favs = favs;
@@ -25,9 +27,7 @@ namespace RentABook.Web.Areas.Users.Controllers
 
         public ActionResult List()
         {
-            string currentUserId = User.Identity.GetUserId();
-
-            var favsViewModel = this.favs.All().Where(f => f.CreatorId == currentUserId).Select(f => new FavouriteItemViewModel
+            var favsViewModel = this.favs.All().Where(f => f.CreatorId == this.CurrentUserId).Select(f => new FavouriteItemViewModel
             {
                 UserId = f.UserId,
                 FullName = f.User.FirstName + " " + f.User.LastName,
@@ -40,14 +40,12 @@ namespace RentABook.Web.Areas.Users.Controllers
         public ActionResult Add(string id)
         {
             string userId = id;
-            string currentUserId = User.Identity.GetUserId();
-
-            if (string.IsNullOrEmpty(userId) || userId == currentUserId)
+            if (string.IsNullOrEmpty(userId) || userId == this.CurrentUserId)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var userDb = users.All().Where(u => u.Id == currentUserId && !u.Favourites.Any(f => f.UserId == userId)).FirstOrDefault();
+            var userDb = users.All().Where(u => u.Id == this.CurrentUserId && !u.Favourites.Any(f => f.UserId == userId)).FirstOrDefault();
 
             if (userDb == null)
             {
@@ -56,7 +54,7 @@ namespace RentABook.Web.Areas.Users.Controllers
 
             userDb.Favourites.Add(new Favourite
             {
-                CreatorId = currentUserId,
+                CreatorId = this.CurrentUserId,
                 UserId = userId,
                 DateCreated = DateTime.Now
             });
@@ -68,14 +66,13 @@ namespace RentABook.Web.Areas.Users.Controllers
         public ActionResult Remove(string id)
         {
             string userId = id;
-            string currentUserId = User.Identity.GetUserId();
 
-            if (string.IsNullOrEmpty(userId) || userId == currentUserId)
+            if (string.IsNullOrEmpty(userId) || userId == this.CurrentUserId)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var favDb = favs.All().Where(f => f.CreatorId == currentUserId && f.UserId == userId).FirstOrDefault();
+            var favDb = favs.All().Where(f => f.CreatorId == this.CurrentUserId && f.UserId == userId).FirstOrDefault();
 
             if (favDb == null)
             {

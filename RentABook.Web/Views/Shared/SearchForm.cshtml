@@ -1,0 +1,15 @@
+﻿@model RentABook.Web.Models.SearchViewModel
+
+@using (Html.BeginForm("Search", "Book", new { area = "Books" }, FormMethod.Get, new { @class = "dropdown-menu form-search" }))
+{
+    @Html.TextBoxFor(m => m.SearchText, new { @class = "input-medium search-query" })
+    <button type="submit" class="btn">
+        <i class="icon-search"></i>
+    </button>
+    <p>
+        @Html.DropDownListFor(m => m.Town, Model.Towns, "Filter by town")
+    </p>
+    <p>
+        @Html.DropDownListFor(m => m.Category, Model.Categories, "Filter by genre")
+    </p>
+}

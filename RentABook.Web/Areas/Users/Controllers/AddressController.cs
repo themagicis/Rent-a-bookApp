@@ -12,25 +12,27 @@
     using RentABook.Data.Repositories;
     using RentABook.Models.Poco;
     using RentABook.Web.Areas.Users.Models;
+    using RentABook.Web.Code;
 
     [Authorize]
     [ValidateInput(false)]
-    public class AddressController : Controller
+    public class AddressController : BaseController
     {
-        private IRepository<Town> townsDb;
-        private IRepository<Address> addressDb;
+        private IRepository<Town> towns;
+        private IRepository<Address> addresses;
 
-        public AddressController(IRepository<Town> townsDb, IRepository<Address> addressDb)
+        public AddressController(IRepository<Town> towns, IRepository<Address> addresses, IRepository<Category> categories)
+            :base(categories, towns)
         {
-            this.townsDb = townsDb;
-            this.addressDb = addressDb;
+            this.towns = towns;
+            this.addresses = addresses;
         }
 
         [HttpGet]
         public ActionResult Addresses()
         {
             string userId = User.Identity.GetUserId();
-            var addressList = addressDb.All().Where(a => a.UserId == userId).Select(a => new AddressDetailsViewModel
+            var addressList = addresses.All().Where(a => a.UserId == userId).Select(a => new AddressDetailsViewModel
             {
                 Id = a.Id,
                 Town = a.Town.Name,
@@ -43,7 +45,7 @@
         public ActionResult CreateAddress()
         {
             var viewModel = new AddressViewModel();
-            var townsList = townsDb.All().ToList();
+            var townsList = towns.All().ToList();
             viewModel.Towns = new SelectList(townsList, "Id", "Name");
 
             return View(viewModel);
@@ -55,17 +57,17 @@
         {
             if (ModelState.IsValid && address.TownId.HasValue)
             {
-                addressDb.Add(new Address
+                addresses.Add(new Address
                 {
                     UserId = User.Identity.GetUserId(),
                     TownId = address.TownId.Value,
                     FullAddress = address.FullAddress
                 });
-                addressDb.SaveChanges();
+                addresses.SaveChanges();
                 return RedirectToAction("Addresses");
             }
 
-            var townsList = townsDb.All().ToList();
+            var townsList = towns.All().ToList();
             address.Towns = new SelectList(townsList, "Id", "Name");
             return View(address);
         }
@@ -74,15 +76,15 @@
         public ActionResult DeleteAddress(int id)
         {
             string userId = User.Identity.GetUserId();
-            var address = addressDb.All().Where(a => a.Id == id && a.UserId == userId).FirstOrDefault();
+            var address = addresses.All().Where(a => a.Id == id && a.UserId == userId).FirstOrDefault();
 
             if (address == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            addressDb.Delete(address);
-            addressDb.SaveChanges();
+            addresses.Delete(address);
+            addresses.SaveChanges();
 
             return Content(string.Empty);
         }
@@ -91,14 +93,14 @@
         public ActionResult EditAddress(int id)
         {
             string userId = User.Identity.GetUserId();
-            var address = addressDb.All().Where(a => a.Id == id && a.UserId == userId).FirstOrDefault();
+            var address = addresses.All().Where(a => a.Id == id && a.UserId == userId).FirstOrDefault();
 
             if (address == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
 
-            var townsList = townsDb.All().ToList();
+            var townsList = towns.All().ToList();
             var viewModel = new EditAddressViewModel();
             viewModel.Id = address.Id;
             viewModel.TownId = address.TownId;
@@ -113,7 +115,7 @@
             if (ModelState.IsValid && editAddress.TownId.HasValue)
             {
                 string userId = User.Identity.GetUserId();
-                var address = addressDb.All().Where(a => a.Id == editAddress.Id && a.UserId == userId).FirstOrDefault();
+                var address = addresses.All().Where(a => a.Id == editAddress.Id && a.UserId == userId).FirstOrDefault();
 
                 if (address == null)
                 {
@@ -124,7 +126,7 @@
                 address.TownId = editAddress.TownId.Value;
                 address.FullAddress = editAddress.FullAddress;
 
-                addressDb.SaveChanges();
+                addresses.SaveChanges();
 
                 AddressDetailsViewModel updatedModel = new AddressDetailsViewModel
                 {
@@ -136,7 +138,7 @@
                 return PartialView("_ViewAddress", updatedModel);
             }
 
-            var townsList = townsDb.All().ToList();
+            var townsList = towns.All().ToList();
             editAddress.Towns = new SelectList(townsList, "Id", "Name");
             return PartialView("_EditAddress", editAddress);
         }

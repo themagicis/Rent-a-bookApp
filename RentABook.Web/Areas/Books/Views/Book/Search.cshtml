@@ -1,0 +1,65 @@
+﻿@model RentABook.Web.Areas.Books.Models.SearchResultViewModel
+
+@{
+    ViewBag.Title = "Search results";
+}
+
+<div class="container">
+    <div class="card ">
+        <h2 class="card-heading simple">@ViewBag.Title</h2>
+        <div class="card-body text-center">
+            <div class="pagination">
+                <ul>
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <li>
+                            @Ajax.ActionLink(i.ToString(), "SearchPaged", new { searchText = Model.SearchText, category = Model.Category, town = Model.Town, page = i }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "search-result", OnSuccess = "turnPage(" + i + ")", HttpMethod = "Post" }, new { id = "page" + i, @class="page" })
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="row-fluid">
+                <div class="span3"></div>
+                <div class="span6 text-left">
+                    <ul id="search-result">
+                        @Html.Partial("BookList", Model.Books)
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <ul>
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        @*if (i == Model.CurrentPage)
+                        {
+                            <li><span class="current-page">@i</span></li>
+                        }
+                        else
+                        {*@
+                        //    <li><a href="@Model.QueryString&Page=@i">@i</a></li>
+                        //}
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        function turnPage(page) {
+            $('.page').css("background", "#fff");
+            $('#page' + page).css("background", "#eee");
+        }
+
+        $(document).ready(function () {
+            $('#page' + 1).css("background", "#eee");
+        })
+    </script>
+}
+
+
+

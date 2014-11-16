@@ -8,23 +8,95 @@ using System.Web;
 using System.Web.Mvc;
 using System.Net;
 using RentABook.Web.Code;
+using RentABook.Web.Models;
 
 namespace RentABook.Web.Areas.Books.Controllers
 {
     [Authorize]
     public class BookController : BaseController
     {
+        private const int pageSize = 3;
+
         private IRepository<Category> categories;
         private IRepository<Address> addresses;
         private IRepository<Book> books;
         private IRepository<RentRequest> requests;
 
-        public BookController(IRepository<Category> categories, IRepository<Address> addresses, IRepository<Book> books, IRepository<RentRequest> requests)
+        public BookController(IRepository<Category> categories, IRepository<Address> addresses, IRepository<Book> books, IRepository<RentRequest> requests, IRepository<Town> towns)
+            :base(categories, towns)
         {
             this.categories = categories;
             this.addresses = addresses;
             this.books = books;
             this.requests = requests;
+        }
+
+        [AllowAnonymous]
+        public ActionResult Search(SearchViewModel model)
+        {
+            int totalResults;
+            var books = GetBooks(model, 1, out totalResults);
+            int pageCount = totalResults / pageSize + (totalResults % pageSize == 0 ? 0 : 1);
+
+            var resultModel = new SearchResultViewModel
+            {
+                Books = books,
+                CurrentPage = 1,
+                PageCount = pageCount,
+                SearchText = model.SearchText,
+                Category = model.Category,
+                Town = model.Town
+            };
+
+            return View(resultModel);
+        }
+
+        public ActionResult SearchPaged(SearchViewModel model, int page)
+        {
+            int totalResults;
+            var books = GetBooks(model, page, out totalResults);
+
+            return PartialView("BookList", books);
+        }
+
+        private IEnumerable<ResultBookViewModel> GetBooks(SearchViewModel model, int page, out int totalCount)
+        {
+            var query = this.books.All().Where(b => b.State != BookState.WaitingForApproval && b.State != BookState.Archived);
+
+            if (!string.IsNullOrEmpty(model.SearchText))
+            {
+                string searchStr = model.SearchText.ToLower();
+                query = query.Where(b => b.Author.ToLower().Contains(searchStr) || b.Title.ToLower().Contains(searchStr));
+            }
+
+            if (model.Category.HasValue)
+            {
+                query = query.Where(b => b.Categories.Any(c => c.Id == model.Category));
+            }
+
+            if (model.Town.HasValue)
+            {
+                query = query.Where(b => b.Address.TownId == model.Town);
+            }
+
+            totalCount = query.Count();
+
+            var booksFound = query
+                .OrderByDescending(b => b.DateCreated)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .Select(b => new ResultBookViewModel
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    State = b.State,
+                    Description = b.ShortDescription,
+                    Town = b.Address.Town.Name,
+                    Type = b.RentType
+                }).ToList();
+
+            return booksFound;
         }
 
         [HttpGet]
@@ -156,8 +228,6 @@ namespace RentABook.Web.Areas.Books.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookInputModel newBook)
         {
-            string currentUserId = this.CurrentUserId;
-
             if (newBook.RentType == RentType.Deposit || newBook.RentType == RentType.Paid)
             {
                 if (!newBook.Price.HasValue)
@@ -175,7 +245,7 @@ namespace RentABook.Web.Areas.Books.Controllers
                     AddressId = newBook.AddressId.Value,
                     Author = newBook.Author,
                     Condition = newBook.Condition,
-                    OwnerId = currentUserId,
+                    OwnerId = this.CurrentUserId,
                     Price = newBook.Price,
                     RentType = newBook.RentType,
                     ShortDescription = newBook.ShortDescription,
@@ -192,7 +262,7 @@ namespace RentABook.Web.Areas.Books.Controllers
                     Book = bookDb,
                     State = BookState.Available,
                     DateChanged = DateTime.Now,
-                    UserId = currentUserId
+                    UserId = this.CurrentUserId
                 };
 
                 bookDb.History.Add(history);
@@ -206,7 +276,7 @@ namespace RentABook.Web.Areas.Books.Controllers
             
             var addressList = new SelectList(addresses
                 .All()
-                .Where(a => a.UserId == currentUserId)
+                .Where(a => a.UserId == this.CurrentUserId)
                 .Select(a => new
                 {
                     Id = a.Id,
