@@ -185,7 +185,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\ConfigController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Administration\Models\CategoryViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\TownViewModel.cs" />
     <Compile Include="Areas\Administration\Models\UserForAdministrationModel.cs" />
     <Compile Include="Areas\Books\BooksAreaRegistration.cs" />
     <Compile Include="Areas\Books\Controllers\BookController.cs" />
@@ -292,6 +295,9 @@
     <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Administration\Views\Users\Manage.cshtml" />
+    <Content Include="Areas\Administration\Views\Config\Categories.cshtml" />
+    <Content Include="Areas\Administration\Views\Config\Towns.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\EditorTemplates\NonEditable.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

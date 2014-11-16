@@ -1,0 +1,58 @@
+﻿@using RentABook.Web.Areas.Administration.Models
+@model TownViewModel
+@{
+    ViewBag.Title = "Manage towns";
+    const string ControllerName = "Config";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Admin Tools</li>
+                    <li><a href="~/Administration/Books/Approve">Approve books</a></li>
+                    <li><a href="~/Administration/Config/Categories">Manage categories</a></li>
+                    <li class="active"><a href="~/Administration/Config/Towns">Manage towns</a></li>
+                    <li class="nav-header">Super Admin Tools</li>
+                    <li><a href="~/Administration/Users/Manage">Manage users</a></li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="card">
+                <h2 class="card-heading simple">@ViewBag.Title</h2>
+                <div class="card-body">
+                    @(Html.Kendo()
+                        .Grid<TownViewModel>()
+                        .Name("grid")
+                        .HtmlAttributes(new { style = "height: 386px;" })
+                        .Columns(cols =>
+                        {
+                            cols.Bound(t => t.Id).Hidden();
+                            cols.Bound(t => t.Name);
+                            cols.Bound(t => t.Addresses);
+                            cols.Command(com => com.Edit()).Title("Edit");
+                        })
+                        .ColumnMenu()
+                        .Pageable(page => page.Refresh(true))
+                        .Sortable()
+                        .Scrollable()
+                        .Filterable()
+                        .Editable(edit => edit.Mode(GridEditMode.PopUp))
+                        .ToolBar(toolbar => toolbar.Create())
+                        .DataSource(data =>
+                            data
+                                .Ajax()
+                                .Model(m => m.Id(t => t.Id))
+                                .PageSize(6)
+                                .Read(read => read.Action("ReadTowns", ControllerName))
+                                .Update(update => update.Action("UpdateTown", ControllerName))
+                                .Create(create => create.Action("CreateTown", ControllerName))
+                                ))
+                </div>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+</div>
