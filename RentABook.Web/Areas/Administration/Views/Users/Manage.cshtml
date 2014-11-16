@@ -1,0 +1,59 @@
+﻿@using RentABook.Web.Areas.Administration.Models
+@model UserForAdministrationModel
+@{
+    ViewBag.Title = "Manage users";
+    const string ControllerName = "Users";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span3">
+            <div class="sidebar-nav">
+                <ul class="nav nav-list">
+                    <li class="nav-header">Admin Tools</li>
+                    <li><a href="~/Administration/Books/Approve">Approve books</a></li>
+                    <li><a href="~/Administration/Config/Categories">Manage categories</a></li>
+                    <li><a href="~/Administration/Config/Towns">Manage towns</a></li>
+                    <li class="nav-header">Super Admin Tools</li>
+                    <li class="active"><a href="~/Administration/Users/Manage">Manage users</a></li>
+                </ul>
+            </div><!--/.well -->
+        </div><!--/span-->
+
+        <div class="span9">
+            <div class="card">
+                <h2 class="card-heading simple">@ViewBag.Title</h2>
+                <div class="card-body">
+                    @(Html.Kendo()
+                        .Grid<UserForAdministrationModel>()
+                        .Name("grid")
+                        .HtmlAttributes(new { style = "height: 376px;" })
+                        .Columns(cols =>
+                        {
+                            cols.Bound(u => u.Id).Hidden();
+                            cols.Bound(u => u.UserName);
+                            cols.Bound(u => u.FullName);
+                            cols.Bound(u => u.Score);
+                            cols.Bound(u => u.IsAdmin).ClientTemplate("<input type='checkbox' #= IsAdmin ? 'checked=checked' : '' # disabled='disabled' ></input>");
+                            cols.Bound(u => u.IsDeactivated).ClientTemplate("<input type='checkbox' #= IsDeactivated ? 'checked=checked' : '' # disabled='disabled' ></input>");
+                            cols.Command(com => com.Edit()).Title("Edit");
+                        })
+                        .ColumnMenu()
+                        .Pageable(page => page.Refresh(true))
+                        .Sortable()
+                        .Scrollable()
+                        .Filterable()
+                        .Editable(edit => edit.Mode(GridEditMode.PopUp))
+                        .DataSource(data =>
+                            data
+                                .Ajax()
+                                .Model(m => m.Id(u => u.Id))
+                                .PageSize(7)
+                                .Read(read => read.Action("Read", ControllerName))
+                                .Update(update => update.Action("Update", ControllerName))
+                                ))
+                </div>
+            </div>
+        </div><!--/span-->
+    </div><!--/row-->
+</div>

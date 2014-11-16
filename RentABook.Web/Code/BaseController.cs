@@ -35,6 +35,7 @@ namespace RentABook.Web.Code
             }
         }
 
+        [AllowAnonymous]
         public ActionResult SearchForm()
         {
             SearchViewModel model;

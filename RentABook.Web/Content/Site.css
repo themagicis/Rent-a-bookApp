@@ -150,10 +150,10 @@ div.favourite-item img.star {
     top: -20px;
 }
 
-div.favourite-item img.delete {
+div.favourite-item a.delete {
     position: relative;
-    left: 25px;
-    top: 5px;
+    left: 175px;
+    top: -25px;
 }
 
 div.favourite-item .info {
@@ -180,10 +180,6 @@ option {
     padding: 3px;
     margin-bottom: 2px;
     border-radius: 2px;
-}
-
-div.validation-summary-errors ul {
-    margin: 0;
 }
 
 form.dropdown-menu.form-search {
@@ -301,9 +297,10 @@ ul#search-result {
 ul#search-result li {
     display: block;
     border-top: 1px solid lightgrey;
-    height: 125px;
+    height: auto;
     padding-left: 10px;
     padding-right: 10px;
+    padding-bottom: 10px;
 }
 
 ul#search-result li h3 {
@@ -326,4 +323,16 @@ ul#search-result span.inrent {
 
 ul#search-result span.notreturned {
     background: lightpink;
+}
+
+ul#search-result a.book-link {
+    text-decoration: none;
+}
+
+.card-body .k-grid li {
+    line-height: inherit !important;
+}
+
+.card-body .k-grid {
+    margin-bottom: 20px;
 }

@@ -21,10 +21,12 @@ using RentABook.Data.Repositories;
     public class AccountController : BaseController
     {
         private ApplicationUserManager _userManager;
+        private IRepository<AppUser> users;
 
-        public AccountController(IRepository<Category> categories, IRepository<Town> towns)
+        public AccountController(IRepository<Category> categories, IRepository<Town> towns, IRepository<AppUser> users)
             : base(categories, towns)
         {
+            this.users = users;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -78,13 +80,22 @@ using RentABook.Data.Repositories;
                 return View(model);
             }
 
+            if (IsAccountDeactivated(model.UserName))
+            {
+                ModelState.AddModelError("", "Your account has been deactivated. You can contact the administators by sending an email to <strong>admin@rentabook.com</strong>");
+                return View(model);
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -94,6 +105,18 @@ using RentABook.Data.Repositories;
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        private bool IsAccountDeactivated(string userName)
+        {
+            var user = this.users.All().FirstOrDefault(u => u.UserName == userName);
+
+            if (user != null)
+            {
+                return user.IsDeactivated;
+            }
+
+            return false;
         }
 
 

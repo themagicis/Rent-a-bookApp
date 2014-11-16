@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Rent-A-Book web system</title>
     @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
@@ -20,9 +22,9 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li><a href="~/Home/Index">Home</a></li>
-                        @if (User.IsInRole("SuperAdmin"))
+                        @if (User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Admin Tools", "Index", "Home")</li>
+                            <li><a href="~/Administration/Users/Manage">Admin Tools</a></li>
                         }
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activity <i class="caret"></i></a>
@@ -52,8 +54,6 @@
         </div>
     </footer>
     
-
-    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

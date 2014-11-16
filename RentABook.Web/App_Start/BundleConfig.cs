@@ -8,6 +8,10 @@ namespace RentABook.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
+                        "~/Scripts/kendo/kendo.all.min.js",
+                        "~/Scripts/kendo/kendo.aspnetmvc.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -20,6 +24,11 @@ namespace RentABook.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
+
+            bundles.Add(new StyleBundle("~/Content/kendo").Include(
+                        "~/Content/kendo/kendo.common.min.css",
+                        "~/Content/kendo/kendo.common-bootstrap.min.css",
+                        "~/Content/kendo/kendo.bootstrap.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootplus.css",
