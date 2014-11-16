@@ -22,8 +22,3 @@
 {
     <button class="btn btn-inverse btn-large pull-right" disabled="disabled">Requested</button>
 }
-
-@if (Model.State == BookState.Available && Model.IsUserOwner)
-{
-    <button class="btn btn-primary btn-large pull-right">Manage</button>
-}

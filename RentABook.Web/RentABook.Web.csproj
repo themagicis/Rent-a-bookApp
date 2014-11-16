@@ -49,7 +49,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\Kendo.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -128,9 +138,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -185,8 +192,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\BooksController.cs" />
     <Compile Include="Areas\Administration\Controllers\ConfigController.cs" />
     <Compile Include="Areas\Administration\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Administration\Models\BookViewModel.cs" />
     <Compile Include="Areas\Administration\Models\CategoryViewModel.cs" />
     <Compile Include="Areas\Administration\Models\TownViewModel.cs" />
     <Compile Include="Areas\Administration\Models\UserForAdministrationModel.cs" />
@@ -208,6 +217,8 @@
     <Compile Include="Areas\Books\Models\CommentViewModel.cs" />
     <Compile Include="Areas\Users\Models\EditAddressViewModel.cs" />
     <Compile Include="Areas\Users\Models\FavouriteItemViewModel.cs" />
+    <Compile Include="Areas\Users\Models\RequestListItemModel.cs" />
+    <Compile Include="Areas\Users\Models\RequestNotificationModel.cs" />
     <Compile Include="Areas\Users\Models\UpdateProfileViewModel.cs" />
     <Compile Include="Areas\Users\Models\UserDetailsViewModel.cs" />
     <Compile Include="Areas\Users\UsersAreaRegistration.cs" />
@@ -216,6 +227,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Areas\Users\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Users\Controllers\RequestsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -298,11 +310,16 @@
     <Content Include="Areas\Administration\Views\Config\Categories.cshtml" />
     <Content Include="Areas\Administration\Views\Config\Towns.cshtml" />
     <Content Include="Areas\Administration\Views\Shared\EditorTemplates\NonEditable.cshtml" />
+    <Content Include="Areas\Administration\Views\Books\ApproveList.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\RequestNotifications.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\RequestList.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -355,6 +372,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Users\Views\Requests\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>

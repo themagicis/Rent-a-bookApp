@@ -67,9 +67,28 @@
                     </div>
                 </div>
                 <hr />
-                <div class="row">
+                @if (Model.BookState.IsUserOwner)
+                {
+                    <div class="row" id="showRequests">
+                        <div class="span12">
+                            <a href="#">Show requests</a>
+                        </div>
+                    </div>
+                    <div class="row" id="loader" style="display:none;">
+                        <div class="span12">
+                            <img width="64" src="~/Content/Images/loader_large_blue.gif" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span6" id="requestList">
+
+                        </div>
+                    </div>
+                    <hr />
+                }
+                <div class="row" id="showComments">
                     <div class="span12">
-                        <a href="#" id="showComments">Show comments</a>
+                        <a href="#">Show comments</a>
                     </div>
                 </div>
                 <div class="row" id="loader" style="display:none;">
@@ -111,55 +130,71 @@
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/jquery.daterangepicker.js"></script>
     <script>
-        function commentSuccess() {
-            $('#content').val('');
+    function commentSuccess() {
+        $('#content').val('');
+    }
+
+    $(document).ready(function () {
+        if ($('#datespan').length) {
+            var startDate = new Date();
+            var numberOfDaysToAdd = 3;
+            startDate.setDate(startDate.getDate() + numberOfDaysToAdd);
+
+            var configObject = {
+                inline:true,
+                container: '#date-range-container',
+                alwaysOpen: true,
+                startOfWeek: 'monday',
+                startDate: startDate,
+                minDays: 3,
+                maxDays: 21
+            }
+            $('#datespan').dateRangePicker(configObject);
         }
 
-        $(document).ready(function () {
-            if ($('#datespan').length) {
-                var startDate = new Date();
-                var numberOfDaysToAdd = 3;
-                startDate.setDate(startDate.getDate() + numberOfDaysToAdd);
+        $('#condition').ionRangeSlider();
 
-                var configObject = {
-                    inline:true,
-                    container: '#date-range-container', 
-                    alwaysOpen: true,
-                    startOfWeek: 'monday',
-                    startDate: startDate,
-                    minDays: 3,
-                    maxDays: 21
-                }				
-                $('#datespan').dateRangePicker(configObject);
-            }
-            
-            $('#condition').ionRangeSlider();
+        $('#rbFree').change(function () {
+            $('#group-price').hide();
+        });
 
-            $('#rbFree').change(function () {
-                $('#group-price').hide();
-            });
+        $('#rbPaid').change(function () {
+            $('#group-price').show();
+        });
 
-            $('#rbPaid').change(function () {
-                $('#group-price').show();
-            });
+        $('#rbDeposit').change(function () {
+            $('#group-price').show();
+        });
 
-            $('#rbDeposit').change(function () {
-                $('#group-price').show();
-            });
+        $('#showComments').click(function () {
+            $('#loader').show();
+            $.post("/Books/Comments/List/" + @Model.Id, function (data) {
+                $('#loader').hide();
 
-            $('#showComments').click(function () {
-                $('#loader').show();
-                $.post("/Books/Comments/List/" + @Model.Id, function (data) {
-                    $('#loader').hide();
-                    
-                    $('#addCommentForm').show();
-                    $("#comments").html(data);
+                $('#addCommentForm').show();
+                $("#comments").html(data);
 
-                    $('#showComments').hide();
-                });
+                $('#showComments').hide();
             });
         });
-    </script>
+
+        @if (Model.BookState.IsUserOwner)
+        {
+            <text>
+                $('#showRequests').click(function () {
+                    $('#loaderRequests').show();
+                    $.post("/Users/Requests/List/" + @Model.Id, function (data) {
+                        $('#loaderRequests').hide();
+
+                        $("#requestList").html(data);
+
+                        $('#showRequests').hide();
+                    });
+                });
+            </text>
+        }
+    });
+</script>
 }
 
 

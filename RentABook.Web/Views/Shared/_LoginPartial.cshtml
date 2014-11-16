@@ -6,45 +6,13 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
+            
             <li class="dropdown dropdown-notification">
-                <a href="#" class="dropdown-toggle btn-notification" data-toggle="dropdown">
-                    <i class="icon-book"></i><span> 8 requests</span>
+                <a href="#" id="requests" class="dropdown-toggle btn-notification" data-toggle="dropdown">
+                    <i class="icon-bell-alt"></i><span id="requests-info"> 0 request(s)</span>
                 </a>
                 <!--<div class="dropdown-menu dropdown-notifications">-->
-                <ul class="dropdown-menu dropdown-notifications">
-                    <li class="header">Notifications</li>
-                    <li>
-                        <span class="title">Notification title</span>
-                        <div class="media">
-                            <div class="media-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="title"><strong>Notification</strong> title</span>
-                    </li>
-                </ul>
-                <!--</div>-->
-            </li>
-            <li class="dropdown dropdown-notification">
-                <a href="#" class="dropdown-toggle btn-notification" data-toggle="dropdown">
-                    <i class="icon-bell-alt"></i><span> 18 reminders</span>
-                </a>
-                <!--<div class="dropdown-menu dropdown-notifications">-->
-                <ul class="dropdown-menu dropdown-notifications">
-                    <li class="header">Notifications</li>
-                    <li>
-                        <span class="title">Notification title</span>
-                        <div class="media">
-                            <div class="media-body">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="title"><strong>Notification</strong> title</span>
-                    </li>
+                <ul class="dropdown-menu dropdown-notifications" id="request-list">
                 </ul>
                 <!--</div>-->
             </li>
@@ -62,6 +30,28 @@
             </li>
         </ul>
     }
+    
+    <script>
+        $(document).ready(function () {
+            function loadRequests() {
+                //load requests from server
+                $.post('/Users/Requests/Notifications', function (data) {
+                    $("#request-list").html(data);
+
+                    var requestCount = $('div.media').length;
+                    $('#requests-info').html(" " + requestCount + " request(s)");
+                });
+            }
+
+            $('#requests').click(function () {
+                if (!this.parentElement.classList.contains("open")) {
+                    loadRequests();
+                }
+            });
+
+            loadRequests();
+        });
+    </script>
 }
 else
 {
@@ -75,3 +65,4 @@ else
     }
 
 }
+

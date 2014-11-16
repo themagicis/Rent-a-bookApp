@@ -64,7 +64,7 @@ table#top-owners, table#latest-books {
     table-layout: fixed;
 }
 
-table#top-owners span, table#latest-books span {
+table#top-owners span, table#latest-books span, table#request-list span {
     padding-top: 8px;
     overflow: hidden;
     text-overflow: ellipsis;
