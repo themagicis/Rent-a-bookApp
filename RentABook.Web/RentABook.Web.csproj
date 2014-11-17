@@ -75,6 +75,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -216,6 +217,7 @@
     <Compile Include="Areas\Users\Models\AddressViewModel.cs" />
     <Compile Include="Areas\Books\Models\CommentViewModel.cs" />
     <Compile Include="Areas\Users\Models\EditAddressViewModel.cs" />
+    <Compile Include="Areas\Users\Models\EventViewModel.cs" />
     <Compile Include="Areas\Users\Models\FavouriteItemViewModel.cs" />
     <Compile Include="Areas\Users\Models\RentViewModel.cs" />
     <Compile Include="Areas\Users\Models\RequestListItemModel.cs" />
@@ -246,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\fullcalendar.css" />
     <Content Include="Content\Images\delete_Icon.png" />
     <Content Include="Content\Images\keditbookmarks.png" />
     <Content Include="Content\Images\loader_large_blue.gif" />
@@ -319,11 +322,14 @@
     <Content Include="Areas\Users\Views\Shared\RentInProgress.cshtml" />
     <Content Include="Areas\Users\Views\Shared\ManageRent.cshtml" />
     <Content Include="Areas\Users\Views\Shared\SetAvailable.cshtml" />
+    <Content Include="Areas\Users\Views\Users\Calendar.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.daterangepicker.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.js" />
     <Content Include="Scripts\jquery.signalR-2.1.2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -331,7 +337,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Kendo\kendo.all.min.js" />
+    <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\toastr.js" />
@@ -359,6 +368,8 @@
     <Content Include="Views\Shared\DisplayTemplates\Slider.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Calendar.cshtml" />
     <Content Include="Views\Shared\SearchForm.cshtml" />
+    <Content Include="Scripts\Kendo\kendo.all.min.js.map" />
+    <Content Include="Scripts\Kendo\kendo.aspnetmvc.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RentABook.Data\RentABook.Data.csproj">
@@ -377,10 +388,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Areas\Users\Views\Requests\" />
-    <Folder Include="Views\Base\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

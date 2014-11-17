@@ -313,7 +313,7 @@ namespace RentABook.Web.Areas.Books.Controllers
                     Price = newBook.Price,
                     RentType = newBook.RentType,
                     ShortDescription = newBook.ShortDescription,
-                    State = BookState.Available,
+                    State = BookState.WaitingForApproval,
                     Title = newBook.Title,
                     Categories = cats,
                     DateCreated = DateTime.Now

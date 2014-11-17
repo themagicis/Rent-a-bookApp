@@ -28,32 +28,32 @@
         {
             HomePageViewModel model;
 
-            //if (this.HttpContext.Cache["stat"] == null)
-            //{
+            if (this.HttpContext.Cache["stat"] == null)
+            {
                 model = new HomePageViewModel
                 {
                     TopOwners = GetTopOwners(),
                     LatestBooks = GetLatestBooks(),
                 };
 
-            //    this.HttpContext.Cache.Insert(
-            //        "stat",
-            //        model,                        
-            //        null,                             
-            //        DateTime.Now.AddMinutes(30),     
-            //        TimeSpan.Zero,                    
-            //        CacheItemPriority.Default,        
-            //        null);                            
-            //}
+                this.HttpContext.Cache.Insert(
+                    "stat",
+                    model,
+                    null,
+                    DateTime.Now.AddMinutes(30),
+                    TimeSpan.Zero,
+                    CacheItemPriority.Default,
+                    null);
+            }
 
-            //model = ((HomePageViewModel)this.HttpContext.Cache["stat"]);
+            model = ((HomePageViewModel)this.HttpContext.Cache["stat"]);
 
             return View(model);
         }
 
         private IEnumerable<TopOwnersViewModel> GetTopOwners()
         {
-            var result = this.users.All().OrderBy(u => u.FeedbackScore).Take(5).Select(u => new TopOwnersViewModel{
+            var result = this.users.All().OrderByDescending(u => u.FeedbackScore).Take(5).Select(u => new TopOwnersViewModel{
                  OwnerName = u.UserName,
                  OwnerFullName = u.FirstName + " " + u.LastName,
                  BooksCount = u.Books.Count,

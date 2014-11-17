@@ -1,0 +1,60 @@
+﻿<link href="~/Content/fullcalendar.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="card">
+        <h2 class="card-heading simple">@ViewBag.Title</h2>
+        <div class="card-body">
+            <div id="calendar">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/fullcalendar.js"></script>
+<script>
+    function toJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return dt;
+    }
+
+    $(function () {
+        $.post("/Users/Users/Events", function (data) {
+            var events = [];
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Type == 1) {
+                    events.push({
+                        title: data[i].Title,
+                        start: toJavaScriptDate(data[i].Start),
+                        end: toJavaScriptDate(data[i].End),
+                        color: '#00f',
+                        url: '/Books/Book/Details/1'
+                    });
+                } else {
+                    events.push({
+                        title: data[i].Title,
+                        start: toJavaScriptDate(data[i].Start),
+                        end: toJavaScriptDate(data[i].End),
+                        color: '#f00'
+                    });
+                }
+                
+            }
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                defaultDate: Date.now(),
+                editable: false,
+                eventLimit: true, // allow "more" link when too many events
+                events: events
+            });
+        });
+    });
+</script>

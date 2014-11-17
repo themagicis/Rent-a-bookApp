@@ -30,6 +30,10 @@ body > .navbar .brand {
     color: #000;
 }
 
+footer {
+    z-index: 100;
+}
+
 img.logo {
     position: relative;
     left: 0;
@@ -334,5 +338,9 @@ ul#search-result a.book-link {
 }
 
 .card-body .k-grid {
+    margin-bottom: 20px;
+}
+
+div#calendar {
     margin-bottom: 20px;
 }

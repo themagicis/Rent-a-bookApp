@@ -16,13 +16,15 @@ namespace RentABook.Web.Areas.Users.Controllers
     public class UsersController : BaseController
     {
         private IRepository<AppUser> users;
+        private IRepository<BookRent> rents;
         private IRepository<Favourite> favs;
 
-        public UsersController(IRepository<AppUser> users, IRepository<Favourite> favs, IRepository<Category> categories, IRepository<Town> towns)
+        public UsersController(IRepository<BookRent> rents, IRepository<AppUser> users, IRepository<Favourite> favs, IRepository<Category> categories, IRepository<Town> towns)
             :base(categories, towns)
         {
             this.users = users;
             this.favs = favs;
+            this.rents = rents;
         }
 
         public ActionResult Index(string username)
@@ -46,6 +48,40 @@ namespace RentABook.Web.Areas.Users.Controllers
             userViewModel.IsSelfProfile = userViewModel.Id == this.CurrentUserId;
 
             return View(userViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Events()
+        {
+            var data = new List<EventViewModel>();
+
+            var asOwner = this.rents.All().Where(r => r.State == RentState.Started && r.OwnerId == this.CurrentUserId).Select(r => new EventViewModel
+            {
+                Id = r.Request.BookId,
+                Title = r.Request.Book.Title,
+                Start = r.DateStart,
+                End = r.DateEnd,
+                Type = 1
+            });
+            data.AddRange(asOwner);
+
+            var asReceiver = this.rents.All().Where(r => r.State == RentState.Started && r.ReceiverId == this.CurrentUserId).Select(r => new EventViewModel
+            {
+                Id = r.Request.BookId,
+                Title = r.Request.Book.Title,
+                Start = r.DateStart,
+                End = r.DateEnd,
+                Type = 2
+            });
+            data.AddRange(asReceiver);
+
+            return Json(data);
         }
     }
 }
