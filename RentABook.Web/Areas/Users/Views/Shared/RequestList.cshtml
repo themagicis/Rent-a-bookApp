@@ -1,0 +1,24 @@
+﻿@model IEnumerable<RentABook.Web.Areas.Users.Models.RequestListItemModel>
+
+<table class="table table-striped" id="request-list">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td><span>@request.RequesterName</span></td>
+                <td><span>@request.StartDate</span></td>
+                <td><span>@request.EndDate</span></td>
+                <td>
+                    @Ajax.ActionLink("Accept", "Accept", new { id = request.RequestId }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "requestList", HttpMethod = "Post", OnSuccess = "ajaxComplete()" }, new { id = "accept", @class = "btn btn-default" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

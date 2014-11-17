@@ -6,6 +6,8 @@
     {
         IQueryable<T> All();
 
+        IQueryable<T> All(string includes);
+
         T Find(object id);
 
         void Add(T entity);

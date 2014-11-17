@@ -17,5 +17,7 @@ namespace RentABook.Web.Models
         public int? Category { get; set; }
 
         public SelectList Categories { get; set; }
+
+        public string User { get; set; }
     }
 }

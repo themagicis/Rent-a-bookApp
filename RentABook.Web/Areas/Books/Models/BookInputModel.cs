@@ -43,5 +43,7 @@ namespace RentABook.Web.Areas.Books.Models
 
         [Display(Name="Price")]
         public decimal? Price { get; set; }
+
+        public bool IsPowerUser { get; set; }
     }
 }

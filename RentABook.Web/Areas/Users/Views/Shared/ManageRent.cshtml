@@ -1,0 +1,7 @@
+﻿@model int
+<h4>
+    The last rent had finished, you have to set new state to this book:
+</h4>
+
+@Ajax.ActionLink("Available", "SetBookState", "Book", new { area = "Books", BookId = Model, State = 1 }, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ajaxComplete()" }, new { id = "available", @class = "btn btn-success" })
+@Ajax.ActionLink("Not returned", "SetBookState", "Book", new { area = "Books", BookId = Model, State = 3 }, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ajaxComplete()" }, new { id = "notReturned", @class = "btn btn-danger" })

@@ -217,6 +217,7 @@
     <Compile Include="Areas\Books\Models\CommentViewModel.cs" />
     <Compile Include="Areas\Users\Models\EditAddressViewModel.cs" />
     <Compile Include="Areas\Users\Models\FavouriteItemViewModel.cs" />
+    <Compile Include="Areas\Users\Models\RentViewModel.cs" />
     <Compile Include="Areas\Users\Models\RequestListItemModel.cs" />
     <Compile Include="Areas\Users\Models\RequestNotificationModel.cs" />
     <Compile Include="Areas\Users\Models\UpdateProfileViewModel.cs" />
@@ -232,6 +233,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DisplayEnum.cs" />
+    <Compile Include="Hubs\INotifier.cs" />
+    <Compile Include="Hubs\Notifier.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\HomePageViewModel.cs" />
     <Compile Include="Models\LatestBooksViewModel.cs" />
@@ -313,6 +316,9 @@
     <Content Include="Areas\Administration\Views\Books\ApproveList.cshtml" />
     <Content Include="Areas\Users\Views\Shared\RequestNotifications.cshtml" />
     <Content Include="Areas\Users\Views\Shared\RequestList.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\RentInProgress.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\ManageRent.cshtml" />
+    <Content Include="Areas\Users\Views\Shared\SetAvailable.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\ion.rangeSlider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -85,6 +85,7 @@ button.toast-close-button {
 #toast-container {
   position: fixed;
   z-index: 999999;
+  top: 60px;
   /*overrides*/
 
 }

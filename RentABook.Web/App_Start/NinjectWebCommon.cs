@@ -14,6 +14,7 @@ namespace RentABook.Web.App_Start
 
     using RentABook.Data;
     using RentABook.Data.Repositories;
+    using RentABook.Web.Hubs;
 
     public static class NinjectWebCommon 
     {
@@ -68,6 +69,8 @@ namespace RentABook.Web.App_Start
             kernel.Bind<DbContext>().To<RentABookDbContext>().InRequestScope();
 
             kernel.Bind(typeof(IRepository<>)).To(typeof(EFRepository<>));
+
+            kernel.Bind<INotifier>().To<Notifier>();
         }        
     }
 }

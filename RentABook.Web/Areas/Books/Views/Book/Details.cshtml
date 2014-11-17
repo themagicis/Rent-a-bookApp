@@ -71,7 +71,7 @@
                 {
                     <div class="row" id="showRequests">
                         <div class="span12">
-                            <a href="#">Show requests</a>
+                            <a id="managebtn" href="#">Manage</a>
                         </div>
                     </div>
                     <div class="row" id="loader" style="display:none;">
@@ -84,6 +84,11 @@
 
                         </div>
                     </div>
+                    <script>
+                        function ajaxComplete() {
+                            $('#requestList').html('');
+                        }
+                    </script>
                     <hr />
                 }
                 <div class="row" id="showComments">
@@ -129,71 +134,100 @@
     <script src="~/Scripts/ion.rangeSlider.js"></script>
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/jquery.daterangepicker.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.1.2.js"></script>
+    <script src="~/signalr/hubs"></script>
     <script>
-    function commentSuccess() {
-        $('#content').val('');
-    }
+        var Id = @Model.Id;
 
-    $(document).ready(function () {
-        if ($('#datespan').length) {
-            var startDate = new Date();
-            var numberOfDaysToAdd = 3;
-            startDate.setDate(startDate.getDate() + numberOfDaysToAdd);
+        $.connection.hub.start();
+        var notifier = $.connection.notifier;
 
-            var configObject = {
-                inline:true,
-                container: '#date-range-container',
-                alwaysOpen: true,
-                startOfWeek: 'monday',
-                startDate: startDate,
-                minDays: 3,
-                maxDays: 21
-            }
-            $('#datespan').dateRangePicker(configObject);
-        }
+        notifier.client.bookChangedState = bookChangedState;
 
-        $('#condition').ionRangeSlider();
+        function bookChangedState(bookId, newState) {
 
-        $('#rbFree').change(function () {
-            $('#group-price').hide();
-        });
+            if (Id != bookId) 
+                return;
 
-        $('#rbPaid').change(function () {
-            $('#group-price').show();
-        });
+            $.post("/Books/Book/GetBookState/" + bookId, function (data) {
+                $('#book-state-wrapper').html(data);
 
-        $('#rbDeposit').change(function () {
-            $('#group-price').show();
-        });
+                toastr.options = {
+                    "closeButton": true,
+                    "timeOut": "0",
+                    "extendedTimeOut": "0"
+                };
 
-        $('#showComments').click(function () {
-            $('#loader').show();
-            $.post("/Books/Comments/List/" + @Model.Id, function (data) {
-                $('#loader').hide();
+                toastr.info("The book just changed state to " + newState + "!", "", {});
 
-                $('#addCommentForm').show();
-                $("#comments").html(data);
-
-                $('#showComments').hide();
+                $('#showRequests').show();
             });
-        });
-
-        @if (Model.BookState.IsUserOwner)
-        {
-            <text>
-                $('#showRequests').click(function () {
-                    $('#loaderRequests').show();
-                    $.post("/Users/Requests/List/" + @Model.Id, function (data) {
-                        $('#loaderRequests').hide();
-
-                        $("#requestList").html(data);
-
-                        $('#showRequests').hide();
-                    });
-                });
-            </text>
         }
-    });
+
+        function commentSuccess() {
+            $('#content').val('');
+        }
+
+        $(document).ready(function () {
+            if ($('#datespan').length) {
+                var startDate = new Date();
+                var numberOfDaysToAdd = 3;
+                startDate.setDate(startDate.getDate() + numberOfDaysToAdd);
+
+                var configObject = {
+                    inline:true,
+                    container: '#date-range-container',
+                    alwaysOpen: true,
+                    startOfWeek: 'monday',
+                    startDate: startDate,
+                    minDays: 3,
+                    maxDays: 21
+                }
+                $('#datespan').dateRangePicker(configObject);
+            }
+
+            $('#condition').ionRangeSlider();
+
+            $('#rbFree').change(function () {
+                $('#group-price').hide();
+            });
+
+            $('#rbPaid').change(function () {
+                $('#group-price').show();
+            });
+
+            $('#rbDeposit').change(function () {
+                $('#group-price').show();
+            });
+
+            $('#showComments').click(function () {
+                $('#loader').show();
+                $.post("/Books/Comments/List/" + @Model.Id, function (data) {
+                    $('#loader').hide();
+
+                    $('#addCommentForm').show();
+                    $("#comments").html(data);
+
+                    $('#showComments').hide();
+                });
+            });
+
+            @if (Model.BookState.IsUserOwner)
+            {
+                <text>
+                    $('#showRequests').click(function () {
+                        $('#loaderRequests').show();
+                        $.post("/Users/Requests/List/" + @Model.Id, function (data) {
+                            $('#loaderRequests').hide();
+
+                            $("#requestList").html(data);
+
+                            $('#showRequests').hide();
+                        });
+                    });
+                </text>
+            }
+        });
 </script>
 }
 

@@ -34,6 +34,7 @@ namespace RentABook.Web.Areas.Users.Controllers
                 FullName = u.FirstName + " " + u.LastName,
                 Phone = u.PhoneNumber,
                 Age = u.Age,
+                Score = u.FeedbackScore
             }).FirstOrDefault();
 
             if (userViewModel == null) 

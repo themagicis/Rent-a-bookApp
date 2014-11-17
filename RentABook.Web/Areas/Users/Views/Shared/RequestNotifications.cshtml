@@ -1,0 +1,14 @@
+﻿@model IEnumerable<RentABook.Web.Areas.Users.Models.RequestNotificationModel>
+
+<li class="header">Request list</li>
+
+@foreach (var request in Model)
+{
+    <li>
+        <div class="media">
+            <div class="media-body">
+                User <a href='/Users/@request.RequesterUser' target='_blank'>@request.RequesterName</a> requested book <a href='/Books/Book/Details/@request.BookId'>@request.BookName</a>
+            </div>
+        </div>
+    </li>
+}

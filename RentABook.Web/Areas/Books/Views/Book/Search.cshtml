@@ -13,7 +13,7 @@
                     @for (int i = 1; i <= Model.PageCount; i++)
                     {
                         <li>
-                            @Ajax.ActionLink(i.ToString(), "SearchPaged", new { searchText = Model.SearchText, category = Model.Category, town = Model.Town, page = i }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "search-result", OnSuccess = "turnPage(" + i + ")", HttpMethod = "Post" }, new { id = "page" + i, @class="page" })
+                            @Ajax.ActionLink(i.ToString(), "SearchPaged", new { searchText = Model.SearchText, category = Model.Category, town = Model.Town, user = Model.User, page = i }, new AjaxOptions { InsertionMode = InsertionMode.ReplaceWith, UpdateTargetId = "search-result", OnSuccess = "turnPage(" + i + ")", HttpMethod = "Post" }, new { id = "page" + i, @class="page" })
                         </li>
                     }
                 </ul>

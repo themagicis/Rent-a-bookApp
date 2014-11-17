@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Net;
 using RentABook.Web.Code;
 using RentABook.Web.Models;
+using RentABook.Web.Hubs;
 
 namespace RentABook.Web.Areas.Books.Controllers
 {
@@ -21,14 +22,21 @@ namespace RentABook.Web.Areas.Books.Controllers
         private IRepository<Address> addresses;
         private IRepository<Book> books;
         private IRepository<RentRequest> requests;
+        private IRepository<AppUser> users;
+        private IRepository<BookRent> rents;
+        private INotifier notifier;
 
-        public BookController(IRepository<Category> categories, IRepository<Address> addresses, IRepository<Book> books, IRepository<RentRequest> requests, IRepository<Town> towns)
+        public BookController(IRepository<BookRent> rents, IRepository<AppUser> users, IRepository<Category> categories, IRepository<Address> addresses,
+            IRepository<Book> books, IRepository<RentRequest> requests, IRepository<Town> towns, INotifier notifier)
             :base(categories, towns)
         {
             this.categories = categories;
             this.addresses = addresses;
             this.books = books;
             this.requests = requests;
+            this.users = users;
+            this.rents = rents;
+            this.notifier = notifier;
         }
 
         [AllowAnonymous]
@@ -45,7 +53,8 @@ namespace RentABook.Web.Areas.Books.Controllers
                 PageCount = pageCount,
                 SearchText = model.SearchText,
                 Category = model.Category,
-                Town = model.Town
+                Town = model.Town,
+                User = model.User
             };
 
             return View(resultModel);
@@ -77,6 +86,11 @@ namespace RentABook.Web.Areas.Books.Controllers
             if (model.Town.HasValue)
             {
                 query = query.Where(b => b.Address.TownId == model.Town);
+            }
+
+            if (!string.IsNullOrEmpty(model.User))
+            {
+                query = query.Where(b => b.Owner.UserName == model.User);
             }
 
             totalCount = query.Count();
@@ -136,6 +150,53 @@ namespace RentABook.Web.Areas.Books.Controllers
             }
 
             return View(bookModel);
+        }
+
+        public ActionResult GetBookState(int id)
+        {
+            var bookDb = this.books.All().Where(b => b.Id == id).FirstOrDefault();
+
+            if (bookDb == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            BookStateViewModel model = GetBookState(bookDb);
+            return PartialView("BookState", model);
+        }
+
+        public ActionResult SetBookState(BookStateViewModel model)
+        {
+            var bookDb = this.books.All().Where(b => b.Id == model.BookId).FirstOrDefault();
+
+            if (bookDb == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+            }
+
+            var rent = this.rents.All("Receiver").Where(r => r.OwnerId == this.CurrentUserId && r.Request.BookId == model.BookId && r.State == RentState.Started).First();
+
+            if (model.State == BookState.NotReturned)
+            {
+                rent.Receiver.FeedbackScore -= 50;
+                rent.State = RentState.BookNotReturned;
+                bookDb.State = BookState.NotReturned;
+
+                notifier.BookChangedState(bookDb.Id, BookState.NotReturned);
+            }
+            else
+            {
+                rent.Receiver.FeedbackScore += 5;
+                bookDb.State = BookState.Available;
+                rent.State = RentState.Completed;
+
+                notifier.BookChangedState(bookDb.Id, BookState.Available);
+            }
+
+            this.books.SaveChanges();
+            this.rents.SaveChanges();
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
@@ -213,13 +274,16 @@ namespace RentABook.Web.Areas.Books.Controllers
                 })
             .ToList(), "Id", "Address", "");
 
+            bool isPowerUser = this.users.All().First(u => u.Id == this.CurrentUserId).FeedbackScore > 100;
+
             // set default values for model
             var model = new BookInputModel
             {
                 Condition = 2,
                 Categories = catList,
                 Addresses = addressList,
-                RentType = RentType.Free
+                RentType = RentType.Free,
+                IsPowerUser = isPowerUser
             };
             return View(model);
         }
@@ -268,6 +332,14 @@ namespace RentABook.Web.Areas.Books.Controllers
                 bookDb.History.Add(history);
 
                 this.books.SaveChanges();
+
+                var user = this.users.All().First(u => u.Id == this.CurrentUserId);
+                if (bookDb.RentType == RentType.Free)
+                {
+                    user.FeedbackScore += 10;
+                }
+
+                this.users.SaveChanges();
 
                 return RedirectToAction("Details", new { id = bookDb.Id });
             }

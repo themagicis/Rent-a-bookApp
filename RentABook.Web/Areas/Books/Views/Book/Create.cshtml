@@ -58,10 +58,13 @@
                         <div class="controls options">
                             @Html.RadioButtonFor(m => m.RentType, RentType.Free, new { id = "rbFree" })
                             @Html.Label("rbFree", "Free")
-                            @Html.RadioButtonFor(m => m.RentType, RentType.Paid, new { id = "rbPaid" })
-                            @Html.Label("rbPaid", "Paid")
-                            @Html.RadioButtonFor(m => m.RentType, RentType.Deposit, new { id = "rbDeposit" })
-                            @Html.Label("rbDeposit", "Deposit")
+                            @if (Model.IsPowerUser)
+                            {
+                                @Html.RadioButtonFor(m => m.RentType, RentType.Paid, new { id = "rbPaid" })
+                                @Html.Label("rbPaid", "Paid")
+                                @Html.RadioButtonFor(m => m.RentType, RentType.Deposit, new { id = "rbDeposit" })
+                                @Html.Label("rbDeposit", "Deposit")
+                            }
                         </div>
                     </div>
                     <div class="control-group" id="group-price" style="display:none">

@@ -32,9 +32,10 @@
             </p>
             <p>
                 <strong>Feedback score:</strong> @Model.Score&nbsp;
-                <img src="~/Content/Images/medal_icon.png" width="32" />
-                <img src="~/Content/Images/medal_icon.png" width="32" />
-                <img src="~/Content/Images/medal_icon.png" width="32" />
+                @for (int i = 0; i < Model.Score / 100; i++)
+                {
+                    <img src="~/Content/Images/medal_icon.png" width="32" />
+                }
             </p>
             <p>
                 <strong>Books count:</strong> @Model.BooksCount

@@ -18,5 +18,7 @@ namespace RentABook.Web.Areas.Books.Models
         public int? Category { get; set; }
 
         public int? Town { get; set; }
+
+        public string User { get; set; }
     }
 }

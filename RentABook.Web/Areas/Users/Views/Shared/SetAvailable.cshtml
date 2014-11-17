@@ -1,0 +1,6 @@
+﻿@model int
+<h4>
+    If the book had been returned you can change its state:
+</h4>
+
+@Ajax.ActionLink("Available", "SetBookState", "Book", new { area = "Books", BookId = Model, State = 1 }, new AjaxOptions { HttpMethod = "Post", OnSuccess = "ajaxComplete()" }, new { id = "available", @class = "btn btn-success" })

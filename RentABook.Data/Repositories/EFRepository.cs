@@ -19,6 +19,11 @@
             return this.set;
         }
 
+        public IQueryable<T> All(string includes)
+        {
+            return this.set.Include(includes);
+        }
+
         public T Find(object id)
         {
             return this.set.Find(id);
