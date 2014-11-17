@@ -55,7 +55,7 @@
 }
 else
 {
-    using (Html.BeginForm("Login", "Account", null, FormMethod.Post, new { @class = "navbar-form pull-right form-inline" }))
+    using (Html.BeginForm("Login", "Account", new { area = "" }, FormMethod.Post, new { @class = "navbar-form pull-right form-inline" }))
     {
         @Html.AntiForgeryToken()
         <input name="UserName" class="input-small" type="text" placeholder="Username">

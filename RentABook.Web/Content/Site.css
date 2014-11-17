@@ -156,8 +156,8 @@ div.favourite-item img.star {
 
 div.favourite-item a.delete {
     position: relative;
-    left: 175px;
-    top: -25px;
+    left: 55px;
+    top: 0px;
 }
 
 div.favourite-item .info {
